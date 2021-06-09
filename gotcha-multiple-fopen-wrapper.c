@@ -1,6 +1,5 @@
 #include "gotcha/gotcha_types.h"
 #include "gotcha/gotcha.h"
-#include "gotcha-multiple-fopen-wrapper.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
