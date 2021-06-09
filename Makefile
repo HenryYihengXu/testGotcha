@@ -23,10 +23,10 @@ dlsym-fopen-fread-main: dlsym-fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
 
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -o $@.o -c $^ -D_GNU_SOURCE -ldl
+	$(MPICC) $(CFLAGS) -o $@.o -c $^ -D_GNU_SOURCE
 
-dlsym-fopen-fread-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
-	$(MPICC) $(CFLAGS) -o $@ $^ -ldl -D_GNU_SOURCE
+dlsym-mpi-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
+	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
 
 clean:
 	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
