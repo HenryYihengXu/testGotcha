@@ -4,6 +4,8 @@
 #include <stdarg.h>
 #include <dlfcn.h>
 
+#define _GNU_SOURCE
+
 char *recover_filename(FILE *f)
 {
     char fd_path[256];
