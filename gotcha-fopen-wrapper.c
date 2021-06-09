@@ -22,8 +22,8 @@ int init() {
 
 static int gotcha_fopen_wrapper(const char *filename, const char *mode) {
     printf("opening %s\n", filename);
-    typeof(&gotcha_fopen_wrapper) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle);
-    return wrappee_fopen(filename, mode);
+    typeof(&gotcha_fopen_wrapper) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle);
+    return __real_fopen(filename, mode);
 }
 
 int main() {

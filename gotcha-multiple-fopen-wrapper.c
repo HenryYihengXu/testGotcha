@@ -37,14 +37,14 @@ int fopen_init() {
 static int gotcha_fopen_wrapper1(const char *filename, const char *mode) {
     printf("In fopen wrapper1 opening %s\n", filename);
     //sleep(1);
-    typeof(&gotcha_fopen_wrapper1) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle1);
-    return wrappee_fopen(filename, mode);
+    typeof(&gotcha_fopen_wrapper1) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle1);
+    return __real_fopen(filename, mode);
 }
 
 static int gotcha_fopen_wrapper2(const char *filename, const char *mode) {
     printf("In fopen wrapper2 opening %s\n", filename);
     //sleep(1);
-    typeof(&gotcha_fopen_wrapper2) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle2);
-    return wrappee_fopen(filename, mode);
+    typeof(&gotcha_fopen_wrapper2) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle2);
+    return __real_fopen(filename, mode);
 }
 
