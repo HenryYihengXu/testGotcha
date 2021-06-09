@@ -20,7 +20,7 @@ char *recover_filename(FILE *f)
 }
 
 FILE* fopen(const char *filename, const char *mode) {
-    printf("In fopen wrapper opening %s\n", filename);
+    printf("In fopen dlsym wrapper opening %s\n", filename);
     //sleep(1);
     typeof(&fopen) __real_fopen = dlsym(RTLD_NEXT, "fopen");
     return __real_fopen(filename, mode);
@@ -28,7 +28,7 @@ FILE* fopen(const char *filename, const char *mode) {
 
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     char* filename = recover_filename(stream);
-    printf("In fread wrapper reading %s\n", filename);
+    printf("In fread dlsym wrapper reading %s\n", filename);
     typeof(&fread) __real_fread = dlsym(RTLD_NEXT, "fread");
     return __real_fread(ptr, size, nmemb, stream);
 }

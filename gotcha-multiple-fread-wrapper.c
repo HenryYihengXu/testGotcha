@@ -51,7 +51,7 @@ char *recover_filename(FILE *f)
 
 size_t gotcha_fread_wrapper1(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     char* filename = recover_filename(stream);
-    printf("In fread wrapper1 reading %s\n", filename);
+    printf("In fread gotcha wrapper1 reading %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fread_wrapper1) __real_fread = gotcha_get_wrappee(wrappee_fread_handle1);
     return __real_fread(ptr, size, nmemb, stream);
@@ -59,7 +59,7 @@ size_t gotcha_fread_wrapper1(void *ptr, size_t size, size_t nmemb, FILE *stream)
 
 size_t gotcha_fread_wrapper2(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     char* filename = recover_filename(stream);
-    printf("In fread wrapper2 reading %s\n", filename);
+    printf("In fread gotcha wrapper2 reading %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fread_wrapper2) __real_fread = gotcha_get_wrappee(wrappee_fread_handle2);
     return __real_fread(ptr, size, nmemb, stream);
