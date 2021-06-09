@@ -5,8 +5,8 @@
 #include <string.h>
 #include <stdarg.h>
 
-//static int fopen_wrapper1(const char *filename, const char *mode);
-//static int fopen_wrapper2(const char *filename, const char *mode);
+//static int gotcha_fopen_wrapper1(const char *filename, const char *mode);
+//static int gotcha_fopen_wrapper2(const char *filename, const char *mode);
 int fopen_init();
 
 

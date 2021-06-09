@@ -1,6 +1,6 @@
 #include "gotcha/gotcha_types.h"
 #include "gotcha/gotcha.h"
-#include "multiple-fopen-wrapper.h"
+#include "gotcha-multiple-fopen-wrapper.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
@@ -8,13 +8,13 @@
 
 static gotcha_wrappee_handle_t wrappee_fopen_handle1;
 static gotcha_wrappee_handle_t wrappee_fopen_handle2;
-static int fopen_wrapper1(const char *filename, const char *mode);
-static int fopen_wrapper2(const char *filename, const char *mode);
+static int gotcha_fopen_wrapper1(const char *filename, const char *mode);
+static int gotcha_fopen_wrapper2(const char *filename, const char *mode);
 struct gotcha_binding_t fopen_wrap_actions1 [] = {
-    {"fopen", fopen_wrapper1, &wrappee_fopen_handle1}
+    {"fopen", gotcha_fopen_wrapper1, &wrappee_fopen_handle1}
 };
 struct gotcha_binding_t fopen_wrap_actions2 [] = {
-    {"fopen", fopen_wrapper2, &wrappee_fopen_handle2}
+    {"fopen", gotcha_fopen_wrapper2, &wrappee_fopen_handle2}
 };
 
 int fopen_init() {
@@ -35,17 +35,17 @@ int fopen_init() {
     
 }
 
-static int fopen_wrapper1(const char *filename, const char *mode) {
+static int gotcha_fopen_wrapper1(const char *filename, const char *mode) {
     printf("In fopen wrapper1 opening %s\n", filename);
     //sleep(1);
-    typeof(&fopen_wrapper1) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle1);
+    typeof(&gotcha_fopen_wrapper1) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle1);
     return wrappee_fopen(filename, mode);
 }
 
-static int fopen_wrapper2(const char *filename, const char *mode) {
+static int gotcha_fopen_wrapper2(const char *filename, const char *mode) {
     printf("In fopen wrapper2 opening %s\n", filename);
     //sleep(1);
-    typeof(&fopen_wrapper2) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle2);
+    typeof(&gotcha_fopen_wrapper2) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle2);
     return wrappee_fopen(filename, mode);
 }
 

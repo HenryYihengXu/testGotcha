@@ -6,9 +6,9 @@
 #include <stdarg.h>
 
 static gotcha_wrappee_handle_t wrappee_fopen_handle;
-static int fopen_wrapper(const char *filename, const char *mode);
+static int gotcha_fopen_wrapper(const char *filename, const char *mode);
 struct gotcha_binding_t wrap_actions [] = {
-    {"fopen", fopen_wrapper, &wrappee_fopen_handle}
+    {"fopen", gotcha_fopen_wrapper, &wrappee_fopen_handle}
 };
 
 int init() {
@@ -20,9 +20,9 @@ int init() {
    }
 }
 
-static int fopen_wrapper(const char *filename, const char *mode) {
+static int gotcha_fopen_wrapper(const char *filename, const char *mode) {
     printf("opening %s\n", filename);
-    typeof(&fopen_wrapper) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle);
+    typeof(&gotcha_fopen_wrapper) wrappee_fopen = gotcha_get_wrappee(wrappee_fopen_handle);
     return wrappee_fopen(filename, mode);
 }
 

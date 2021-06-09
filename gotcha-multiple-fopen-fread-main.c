@@ -1,5 +1,5 @@
-#include "multiple-fopen-wrapper.h"
-#include "multiple-fread-wrapper.h"
+#include "gotcha-multiple-fopen-wrapper.h"
+#include "gotcha-multiple-fread-wrapper.h"
 
 int main() {
     int result;
