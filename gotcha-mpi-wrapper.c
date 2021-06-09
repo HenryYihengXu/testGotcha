@@ -29,13 +29,13 @@ int gotcha_MPI_Init_wrapper(int *argc, char ***argv) {
     printf("In MPI_Init gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha_MPI_Init_wrapper) __real_MPI_Init = gotcha_get_wrappee(wrappee_MPI_Init_handle);
-    return wrappee_fread(argc, argv);
+    return __real_MPI_Init(argc, argv);
 }
 
-size_t gotcha_MPI_Finalize_wrapper(void) {
+int gotcha_MPI_Finalize_wrapper(void) {
     printf("In MPI_Finalize gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha_MPI_Finalize_wrapper) __real_MPI_Finalize = gotcha_get_wrappee(wrappee_MPI_Finalize_handle);
-    return wrappee_fread(ptr, size, nmemb, stream);
+    return __real_MPI_Finalize();
 }
 
