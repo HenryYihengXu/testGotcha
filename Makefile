@@ -13,7 +13,7 @@ gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
-	$(CC) $(CFLAGS) -o $@ $^ -ldl
+	$(CC) $(CFLAGS) -o $@ $^ -ldl -D_GNU_SOURCE
 
 clean:
 	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main

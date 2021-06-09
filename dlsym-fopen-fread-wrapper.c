@@ -3,8 +3,7 @@
 #include <string.h>
 #include <stdarg.h>
 #include <dlfcn.h>
-
-#define _GNU_SOURCE
+#include <stdlib.h>
 
 char *recover_filename(FILE *f)
 {
@@ -19,7 +18,7 @@ char *recover_filename(FILE *f)
     return filename;
 }
 
-static int fopen(const char *filename, const char *mode) {
+FILE* fopen(const char *filename, const char *mode) {
     printf("In fopen wrapper opening %s\n", filename);
     //sleep(1);
     typeof(&fopen) __real_fopen = dlsym(RTLD_NEXT, "fopen");

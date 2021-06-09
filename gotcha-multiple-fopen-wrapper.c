@@ -7,8 +7,8 @@
 
 static gotcha_wrappee_handle_t wrappee_fopen_handle1;
 static gotcha_wrappee_handle_t wrappee_fopen_handle2;
-static int gotcha_fopen_wrapper1(const char *filename, const char *mode);
-static int gotcha_fopen_wrapper2(const char *filename, const char *mode);
+static FILE* gotcha_fopen_wrapper1(const char *filename, const char *mode);
+static FILE* gotcha_fopen_wrapper2(const char *filename, const char *mode);
 struct gotcha_binding_t fopen_wrap_actions1 [] = {
     {"fopen", gotcha_fopen_wrapper1, &wrappee_fopen_handle1}
 };
@@ -34,14 +34,14 @@ int fopen_init() {
     
 }
 
-static int gotcha_fopen_wrapper1(const char *filename, const char *mode) {
+static FILE* gotcha_fopen_wrapper1(const char *filename, const char *mode) {
     printf("In fopen wrapper1 opening %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fopen_wrapper1) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle1);
     return __real_fopen(filename, mode);
 }
 
-static int gotcha_fopen_wrapper2(const char *filename, const char *mode) {
+static FILE* gotcha_fopen_wrapper2(const char *filename, const char *mode) {
     printf("In fopen wrapper2 opening %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fopen_wrapper2) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle2);
