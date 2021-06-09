@@ -15,5 +15,9 @@ gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -ldl -D_GNU_SOURCE
 
+dlsym-fopen-fread-main: dlsym-fopen-fread-main.c
+	$(CC) $(CFLAGS) -o $@ $^ -ldl -D_GNU_SOURCE -L/g/g92/xu23/summer-2021/testGotcha
+
 clean:
-	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main
+	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
+	dlsym-fopen-fread-wrapper dlsym-fopen-fread-main 
