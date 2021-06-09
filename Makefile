@@ -3,6 +3,8 @@ CFLAGES=
 MPICC=mpicc
 GOTCHA_LIB=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64
 GOTCHA_INCLUDE=/g/g92/xu23/apps/GOTCHA-1.0.3/include
+MPI_LIB=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/lib
+MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/include
 
 all: gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	 dlsym-fopen-fread-wrapper dlsym-fopen-fread-main \
@@ -21,10 +23,12 @@ dlsym-fopen-fread-main: dlsym-fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
 
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
-	$(CC) $(CFLAGS) -o $@.o -c $^ -D_GNU_SOURCE
+	$(CC) $(CFLAGS) -o $@.o -c $^ -D_GNU_SOURCE -L$(MPI_LIB) -lmpi_ibm \
+	-I$(MPI_INCLUDE)
 
 dlsym-fopen-fread-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
-	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
+	$(CC) $(CFLAGS) -o $@ $^ -ldl -L$(MPI_LIB) -lmpi_ibm \
+	-I$(MPI_INCLUDE)
 
 clean:
 	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
