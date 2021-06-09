@@ -8,7 +8,8 @@ MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/incl
 
 all: gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	 dlsym-fopen-fread-wrapper dlsym-fopen-fread-main \
-	 dlsym-mpi-wrapper dlsym-mpi-main
+	 dlsym-mpi-wrapper dlsym-mpi-main \
+	 dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so
 
 gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-multiple-fopen-wrapper.c gotcha-multiple-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
@@ -18,16 +19,24 @@ gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o libdlsym-fopen-fread-wrapper.so dlsym-fopen-fread-wrapper.o
 
 dlsym-fopen-fread-main: dlsym-fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
 
+dlsym-fopen-fread-main-using-so: dlsym-fopen-fread-main.c
+	$(CC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-fopen-fread-wrapper -ldl
+
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o libdlsym-mpi-wrapper.so dlsym-mpi-wrapper.o
 
 dlsym-mpi-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
 
+dlsym-mpi-main-using-so: dlsym-mpi-main.c
+	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper -ldl
+
 clean:
 	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
-	dlsym-fopen-fread-main dlsym-mpi-main *.o
+	dlsym-fopen-fread-main dlsym-mpi-main *.o *.so
