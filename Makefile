@@ -17,13 +17,13 @@ gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
-	$(CC) $(CFLAGS) -o $@.o -c $^ -D_GNU_SOURCE
+	$(CC) $(CFLAGS) -o $@.o -c $^
 
 dlsym-fopen-fread-main: dlsym-fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
 
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -o $@.o -c $^ -D_GNU_SOURCE
+	$(MPICC) $(CFLAGS) -o $@.o -c $^
 
 dlsym-mpi-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
