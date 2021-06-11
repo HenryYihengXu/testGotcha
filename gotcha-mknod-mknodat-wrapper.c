@@ -8,14 +8,14 @@ static gotcha_wrappee_handle_t wrappee_mknod_handle;
 static gotcha_wrappee_handle_t wrappee_mknodat_handle;
 int gotcha_mknod_wrapper(const char *pathname, mode_t mode, dev_t dev);
 int gotcha_mknodat_wrapper(int dirfd, const char *pathname, mode_t mode, dev_t dev);
-struct gotcha_binding_t MPI_wrap_actions [] = {
+struct gotcha_binding_t mknod_mknodat_wrap_actions [] = {
     {"mknod", gotcha_mknod_wrapper, &wrappee_mknod_handle},
     {"mknodat", gotcha_mknodat_wrapper, &wrappee_mknodat_handle},
 };
 
 int mknod_mknodat_gotcha_init() {
     enum gotcha_error_t result; 
-    result = gotcha_wrap(MPI_wrap_actions, sizeof(MPI_wrap_actions)/sizeof(struct gotcha_binding_t), "MPI");
+    result = gotcha_wrap(mknod_mknodat_wrap_actions, sizeof(mknod_mknodat_wrap_actions)/sizeof(struct gotcha_binding_t), "MPI");
     if (result != GOTCHA_SUCCESS) {
         fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
         if (result == GOTCHA_FUNCTION_NOT_FOUND) {
@@ -23,11 +23,11 @@ int mknod_mknodat_gotcha_init() {
             void* fn;
             gotcha_wrappee_handle_t* hdlptr;
             for (int i = 0; i < 2; i++) {
-                hdlptr = recorder_wrappers[i].function_handle;
+                hdlptr = mknod_mknodat_wrap_actions[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
                     fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
-                            recorder_wrappers[i].name);
+                            mknod_mknodat_wrap_actions[i].name);
                 }
             }
             return -1;
