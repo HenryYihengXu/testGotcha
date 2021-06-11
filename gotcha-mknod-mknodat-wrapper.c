@@ -17,8 +17,21 @@ int mknod_mknodat_gotcha_init() {
     enum gotcha_error_t result; 
     result = gotcha_wrap(MPI_wrap_actions, sizeof(MPI_wrap_actions)/sizeof(struct gotcha_binding_t), "MPI");
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
-      return -1;
+        fprintf(stderr, "gotcha_wrap() returned %d\n", (int) result);
+        if (result == GOTCHA_FUNCTION_NOT_FOUND) {
+            /* one or more functions were not found */
+            void* fn;
+            gotcha_wrappee_handle_t* hdlptr;
+            for (int i = 0; i < GOTCHA_NFUNCS; i++) {
+                hdlptr = recorder_wrappers[i].function_handle;
+                fn = gotcha_get_wrappee(*hdlptr);
+                if (NULL == fn) {
+                    fprintf(stderr, "Gotcha failed to wrap function '%s'\n",
+                            recorder_wrappers[i].name);
+                }
+            }
+            return -1;
+        }
     }
 }
 
