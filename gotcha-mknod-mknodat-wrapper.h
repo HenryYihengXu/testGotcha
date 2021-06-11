@@ -1,0 +1,1 @@
+int mknod_mknodat_gotcha_init();

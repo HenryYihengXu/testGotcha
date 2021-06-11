@@ -37,6 +37,9 @@ dlsym-mpi-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
 dlsym-mpi-main-using-so: dlsym-mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper -ldl
 
+gotcha-mknod-mknodat-main: gotcha-mknod-mknodat-main.c gotcha-mknod-mknodat-wrapper.c
+	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+
 clean:
 	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	dlsym-fopen-fread-main dlsym-mpi-main *.o *.so
