@@ -6,8 +6,8 @@
 
 static gotcha_wrappee_handle_t wrappee_mknod_handle;
 static gotcha_wrappee_handle_t wrappee_mknodat_handle;
-int gotcha_mknod_wrapper(int *argc, char ***argv);
-int gotcha_mknodat_wrapper(void);
+int gotcha_mknod_wrapper(const char *pathname, mode_t mode, dev_t dev);
+int gotcha_mknodat_wrapper(int dirfd, const char *pathname, mode_t mode, dev_t dev);
 struct gotcha_binding_t MPI_wrap_actions [] = {
     {"mknod", gotcha_mknod_wrapper, &wrappee_mknod_handle},
     {"mknodat", gotcha_mknodat_wrapper, &wrappee_mknodat_handle},
