@@ -22,7 +22,7 @@ int mknod_mknodat_gotcha_init() {
             /* one or more functions were not found */
             void* fn;
             gotcha_wrappee_handle_t* hdlptr;
-            for (int i = 0; i < GOTCHA_NFUNCS; i++) {
+            for (int i = 0; i < 2; i++) {
                 hdlptr = recorder_wrappers[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
