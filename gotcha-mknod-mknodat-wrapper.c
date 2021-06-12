@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 static gotcha_wrappee_handle_t wrappee_mknod_handle;
 static gotcha_wrappee_handle_t wrappee_mknodat_handle;
