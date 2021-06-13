@@ -8,7 +8,7 @@
 static gotcha_wrappee_handle_t wrappee___xmknod_handle;
 static gotcha_wrappee_handle_t wrappee___xmknodat_handle;
 int gotcha___xmknod_wrapper(int ver, const char * path, mode_t mode, dev_t * dev);
-int gotcha___xmknodat_wrapper(int ver, int dirfd, const char * path, mode_t path, dev_t * dev);
+int gotcha___xmknodat_wrapper(int ver, int dirfd, const char * path, mode_t mode, dev_t * dev);
 struct gotcha_binding_t __xmknod___xmknodat_wrap_actions [] = {
     {"__xmknod", gotcha___xmknod_wrapper, &wrappee___xmknod_handle},
     {"__xmknodat", gotcha___xmknodat_wrapper, &wrappee___xmknodat_handle},
@@ -43,7 +43,7 @@ int gotcha___xmknod_wrapper(int ver, const char * path, mode_t mode, dev_t * dev
     return __real___xmknod(ver, path, mode, dev);
 }
 
-int gotcha___xmknodat_wrapper(int ver, int dirfd, const char * path, mode_t path, dev_t * dev) {
+int gotcha___xmknodat_wrapper(int ver, int dirfd, const char * path, mode_t mode, dev_t * dev) {
     printf("In __xmknodat gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha___xmknodat_wrapper) __real___xmknodat = gotcha_get_wrappee(wrappee___xmknodat_handle);
