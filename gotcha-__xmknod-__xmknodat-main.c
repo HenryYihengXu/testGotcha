@@ -10,6 +10,6 @@ int main(int argc, char *argv[]) {
         return -1;
     }
     mknod("/g/g92/xu23/summer-2021/testGotcha/test/a", S_IFREG, 0);
-    mknodat(1, "/g/g92/xu23/summer-2021/testGotcha/test/a", S_IFREG, 0);
+    mknodat(0, "/g/g92/xu23/summer-2021/testGotcha/test/a", S_IFREG, 0);
     return 0;
 }
