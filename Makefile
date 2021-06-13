@@ -10,7 +10,7 @@ all: gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	 dlsym-fopen-fread-wrapper dlsym-fopen-fread-main \
 	 dlsym-mpi-wrapper dlsym-mpi-main \
 	 dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so \
-	 gotcha-mknod-mknodat-main
+	 gotcha-mknod-mknodat-main gotcha-__xmknod-__xmknodat-main
 
 gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-multiple-fopen-wrapper.c gotcha-multiple-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
@@ -39,6 +39,9 @@ dlsym-mpi-main-using-so: dlsym-mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper -ldl
 
 gotcha-mknod-mknodat-main: gotcha-mknod-mknodat-main.c gotcha-mknod-mknodat-wrapper.c
+	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+
+gotcha-__xmknod-__xmknodat-main: gotcha-__xmknod-__xmknodat-main.c gotcha-__xmknod-__xmknodat-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 clean:
