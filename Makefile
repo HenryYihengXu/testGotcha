@@ -46,4 +46,7 @@ gotcha-__xmknod-__xmknodat-main: gotcha-__xmknod-__xmknodat-main.c gotcha-__xmkn
 
 clean:
 	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
-	dlsym-fopen-fread-main dlsym-mpi-main *.o *.so
+	dlsym-fopen-fread-wrapper dlsym-fopen-fread-main \
+	dlsym-mpi-wrapper dlsym-mpi-main \
+	dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so \
+	gotcha-mknod-mknodat-main gotcha-__xmknod-__xmknodat-main
