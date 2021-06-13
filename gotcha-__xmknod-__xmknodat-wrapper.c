@@ -40,13 +40,13 @@ int gotcha___xmknod_wrapper(int ver, const char * path, mode_t mode, dev_t * dev
     printf("In __xmknod gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha___xmknod_wrapper) __real___xmknod = gotcha_get_wrappee(wrappee___xmknod_handle);
-    return __real___xmknod(pathname, mode, dev);
+    return __real___xmknod(ver, path, mode, dev);
 }
 
 int gotcha___xmknodat_wrapper(int ver, int dirfd, const char * path, mode_t path, dev_t * dev) {
     printf("In __xmknodat gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha___xmknodat_wrapper) __real___xmknodat = gotcha_get_wrappee(wrappee___xmknodat_handle);
-    return __real___xmknodat(dirfd, pathname, mode, dev);
+    return __real___xmknodat(ver, dirfd, path, mode, dev);
 }
 
