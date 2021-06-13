@@ -1,0 +1,1 @@
+int __xmknod___xmknodat_gotcha_init();
