@@ -27,11 +27,11 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
-    printf("mpi gotcha wrapper initializing\n");
+    printf("mpi dlsym wrapper initializing\n");
 }
 
 static void fini(void)
 {
-    printf("mpi gotcha wrapper finalizing\n");
+    printf("mpi dlsym wrapper finalizing\n");
 }
 #endif
