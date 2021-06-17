@@ -19,11 +19,11 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
-    printf("fopen dlsym wrapper 1 initializing\n")
+    printf("fopen dlsym wrapper 1 initializing\n");
 }
 
 static void fini(void)
 {
-    printf("fopen dlsym wrapper 1 finalizing\n")
+    printf("fopen dlsym wrapper 1 finalizing\n");
 }
 #endif
