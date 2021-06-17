@@ -66,6 +66,9 @@ dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
+dlsym-mpi-wrapper-with-init-fini: dlsym-mpi-wrapper.c
+	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+
 dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
 
