@@ -22,7 +22,7 @@ gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o libdlsym-fopen-fread-wrapper.so dlsym-fopen-fread-wrapper.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
@@ -47,7 +47,7 @@ fopen-fread-main-no-links: fopen-fread-main.c
 
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o libdlsym-mpi-wrapper.so dlsym-mpi-wrapper.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
