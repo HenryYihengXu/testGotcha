@@ -21,3 +21,17 @@ int MPI_Finalize(void) {
     return __real_MPI_Finalize();
 }
 
+#ifdef WITH_INIT_FINI
+static void init(void) __attribute__((constructor));
+static void fini(void) __attribute__((destructor));
+
+static void init(void)
+{
+    printf("mpi gotcha wrapper initializing\n");
+}
+
+static void fini(void)
+{
+    printf("mpi gotcha wrapper finalizing\n");
+}
+#endif
