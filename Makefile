@@ -11,7 +11,7 @@ all: gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	 dlsym-mpi-wrapper dlsym-mpi-main \
 	 dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so \
 	 gotcha-mknod-mknodat-main gotcha-__xmknod-__xmknodat-main \
-	 fopen-fread-no-links
+	 fopen-fread-main-no-links
 
 gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-multiple-fopen-wrapper.c gotcha-multiple-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
