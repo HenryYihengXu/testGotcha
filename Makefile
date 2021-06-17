@@ -30,7 +30,7 @@ dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
 
 dlsym-fopen-wrapper1-with-init-fini: dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -DWITH_INIT_FINI
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
 
 dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
