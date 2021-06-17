@@ -73,7 +73,7 @@ dlsym-mpi-main-using-so: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper -ldl
 
 mpi-main-no-links: mpi-main.c
-	$(CC) $(CFLAGS) -o $@ $^
+	$(MPICC) $(CFLAGS) -o $@ $^
 
 gotcha-mknod-mknodat-main: gotcha-mknod-mknodat-main.c gotcha-mknod-mknodat-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
