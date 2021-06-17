@@ -15,10 +15,26 @@ all: gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	 fopen-fread-main-no-links dlsym-fopen-wrapper1-with-init-fini \
 	 dlsym-fopen-wrapper2-with-init-fini gotcha-mpi-wrapper \
 	 gotcha-mpi-wrapper-with-init-fini mpi-main-no-links \
-	 dlsym-mpi-wrapper-with-init-fini
+	 dlsym-mpi-wrapper-with-init-fini gotcha-multiple-fopen-wrapper \
+	 gotcha-multiple-fread-wrapper gotcha-multiple-fopen-wrapper-with-init-fini \
+	 gotcha-multiple-fread-wrapper-with-init-fini
 
 gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-multiple-fopen-wrapper.c gotcha-multiple-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+
+gotcha-multiple-fopen-wrapper: gotcha-multiple-fopen-wrapper.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+gotcha-multiple-fread-wrapper: gotcha-multiple-fread-wrapper.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+gotcha-multiple-fopen-wrapper-with-init-fini: gotcha-multiple-fopen-wrapper.c
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+
+gotcha-multiple-fread-wrapper-with-init-fini: gotcha-multiple-fread-wrapper.c
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
