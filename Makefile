@@ -36,10 +36,10 @@ dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o libdlsym-mpi-wrapper.so dlsym-mpi-wrapper.o
 
-dlsym-mpi-main: dlsym-mpi-main.c dlsym-mpi-wrapper.o
+dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
 
-dlsym-mpi-main-using-so: dlsym-mpi-main.c
+dlsym-mpi-main-using-so: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper -ldl
 
 gotcha-mknod-mknodat-main: gotcha-mknod-mknodat-main.c gotcha-mknod-mknodat-wrapper.c
