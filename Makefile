@@ -36,6 +36,10 @@ dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
+dlsym-fopen-wrapper2-with-init-fini: dlsym-fopen-wrapper2.c
+#	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+
 dlsym-fread-wrapper: dlsym-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
