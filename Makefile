@@ -11,6 +11,7 @@ all: gotcha-multiple-fopen-fread-main gotcha-mpi-main \
 	 dlsym-mpi-wrapper dlsym-mpi-main \
 	 dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so \
 	 gotcha-mknod-mknodat-main gotcha-__xmknod-__xmknodat-main \
+	 dlsym-fopen-wrapper1 dlsym-fopen-wrapper2 dlsym-fread-wrapper \
 	 fopen-fread-main-no-links
 
 gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-multiple-fopen-wrapper.c gotcha-multiple-fread-wrapper.c
@@ -22,6 +23,18 @@ gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o libdlsym-fopen-fread-wrapper.so dlsym-fopen-fread-wrapper.o
+
+dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
+	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
+	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+dlsym-fread-wrapper: dlsym-fread-wrapper.c
+	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-fread-main: fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
@@ -54,5 +67,6 @@ clean:
 	dlsym-mpi-wrapper dlsym-mpi-main \
 	dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so \
 	gotcha-mknod-mknodat-main gotcha-__xmknod-__xmknodat-main \
-	fopen-fread-main-no-links \
+	fopen-fread-main-no-links dlsym-fopen-wrapper1 dlsym-fopen-wrapper2 \
+	dlsym-fread-wrapper \
 	*.so *.o
