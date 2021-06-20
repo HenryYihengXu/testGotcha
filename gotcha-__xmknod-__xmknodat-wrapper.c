@@ -23,7 +23,8 @@ int __xmknod___xmknodat_gotcha_init() {
             /* one or more functions were not found */
             void* fn;
             gotcha_wrappee_handle_t* hdlptr;
-            for (int i = 0; i < 2; i++) {
+            int i;
+            for (i = 0; i < 2; i++) {
                 hdlptr = __xmknod___xmknodat_wrap_actions[i].function_handle;
                 fn = gotcha_get_wrappee(*hdlptr);
                 if (NULL == fn) {
