@@ -1,8 +1,8 @@
 CC=gcc
 CFLAGS=-I./include
 MPICC=mpicc
-GOTCHA_LIB=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64
-GOTCHA_INCLUDE=/g/g92/xu23/apps/GOTCHA-1.0.3/include
+GOTCHA_LIB=/g/g92/xu23/installs/gotcha-quartz/lib64
+GOTCHA_INCLUDE=/g/g92/xu23/installs/gotcha-quartz/include
 MPI_LIB=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/lib
 MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/include
 
