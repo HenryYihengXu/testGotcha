@@ -25,11 +25,11 @@ gotcha-multiple-fopen-fread-main: ./src/gotcha-multiple-fopen-fread-main.c ./src
 
 gotcha-multiple-fopen-wrapper: ./src/gotcha-multiple-fopen-wrapper.c
 	$(CC) $(CFLAGS) -o ./bin/$@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 gotcha-multiple-fread-wrapper: ./src/gotcha-multiple-fread-wrapper.c
 	$(CC) $(CFLAGS) -o ./bin/$@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 gotcha-multiple-fopen-wrapper-with-init-fini: ./src/gotcha-multiple-fopen-wrapper.c
 	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
@@ -42,18 +42,18 @@ gotcha-mpi-main: ./src/gotcha-mpi-main.c ./src/gotcha-mpi-wrapper.c
 
 gotcha-mpi-wrapper: ./src/gotcha-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o ./bin/$@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
-	$(MPICC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(MPICC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 gotcha-mpi-wrapper-with-init-fini: ./src/gotcha-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -shared -o ./bin/lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 dlsym-fopen-fread-wrapper: ./src/dlsym-fopen-fread-wrapper.c
 	$(CC) $(CFLAGS) -o ./bin/$@.o -c $^
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 dlsym-fopen-wrapper1: ./src/dlsym-fopen-wrapper1.c
 	$(CC) $(CFLAGS) -o ./bin/$@.o -c $^
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 dlsym-fopen-wrapper1-with-init-fini: ./src/dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
@@ -61,7 +61,7 @@ dlsym-fopen-wrapper1-with-init-fini: ./src/dlsym-fopen-wrapper1.c
 
 dlsym-fopen-wrapper2: ./src/dlsym-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -o ./bin/$@.o -c $^
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 dlsym-fopen-wrapper2-with-init-fini: ./src/dlsym-fopen-wrapper2.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
@@ -69,7 +69,7 @@ dlsym-fopen-wrapper2-with-init-fini: ./src/dlsym-fopen-wrapper2.c
 
 dlsym-fread-wrapper: ./src/dlsym-fread-wrapper.c
 	$(CC) $(CFLAGS) -o ./bin/$@.o -c $^
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 dlsym-fopen-fread-main: ./src/fopen-fread-main.c ./src/dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o ./bin/$@ $^ -ldl
@@ -82,7 +82,7 @@ fopen-fread-main-no-links: ./src/fopen-fread-main.c
 
 dlsym-mpi-wrapper: ./src/dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o ./bin/$@.o -c $^
-	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o ./bin/lib$@.so ./bin/$@.o
 
 dlsym-mpi-wrapper-with-init-fini: ./src/dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -shared -o ./bin/lib$@.so $^ -DWITH_INIT_FINI
