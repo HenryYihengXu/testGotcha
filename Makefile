@@ -103,4 +103,4 @@ gotcha-__xmknod-__xmknodat-main: ./src/gotcha-__xmknod-__xmknodat-main.c ./src/g
 	$(CC) $(CFLAGS) -o ./bin/$@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 clean:
-	rm -f ./bin*
+	rm -rf ./bin*
