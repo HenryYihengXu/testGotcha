@@ -1,8 +1,8 @@
 CC=gcc
 CFLAGES=
 MPICC=mpicc
-GOTCHA_LIB=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64
-GOTCHA_INCLUDE=/g/g92/xu23/apps/GOTCHA-1.0.3/include
+GOTCHA_LIB=/g/g92/xu23/installs/gotcha-quartz/lib64
+GOTCHA_INCLUDE=/g/g92/xu23/installs/gotcha-quartz/include
 MPI_LIB=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/lib
 MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/include
 
@@ -44,27 +44,27 @@ mpi-main-no-links: mpi-main.c
 # ========================= dlsym fopen fread =======================
 
 dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
-	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
-	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-wrapper1-with-init-fini: dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -fPIC
 
 dlsym-fopen-wrapper2-with-init-fini: dlsym-fopen-wrapper2.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -fPIC
 
 dlsym-fread-wrapper: dlsym-fread-wrapper.c
-	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
-	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-fread-main: fopen-fread-main.c dlsym-fopen-fread-wrapper.o
@@ -76,11 +76,11 @@ dlsym-fopen-fread-main-using-so: fopen-fread-main.c
 # ========================= dlsym mpi =======================
 
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -o $@.o -c $^
+	$(MPICC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-mpi-wrapper-with-init-fini: dlsym-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -fPIC
 
 dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
@@ -91,18 +91,20 @@ dlsym-mpi-main-using-so: mpi-main.c
 # ========================= gotcha fopen fread =======================
 
 gotcha-multiple-fopen-wrapper: gotcha-multiple-fopen-wrapper.c
-	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 gotcha-multiple-fread-wrapper: gotcha-multiple-fread-wrapper.c
-	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 gotcha-multiple-fopen-wrapper-with-init-fini: gotcha-multiple-fopen-wrapper.c
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ \
+	-DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -fPIC
 
 gotcha-multiple-fread-wrapper-with-init-fini: gotcha-multiple-fread-wrapper.c
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ \
+	-DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -fPIC
 
 gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-multiple-fopen-wrapper.c gotcha-multiple-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
@@ -110,11 +112,12 @@ gotcha-multiple-fopen-fread-main: gotcha-multiple-fopen-fread-main.c gotcha-mult
 # ========================= gotcha mpi =======================
 
 gotcha-mpi-wrapper: gotcha-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(MPICC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -fPIC
 	$(MPICC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 gotcha-mpi-wrapper-with-init-fini: gotcha-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ \
+	-DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -fPIC
 
 gotcha-mpi-main: gotcha-mpi-main.c gotcha-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
