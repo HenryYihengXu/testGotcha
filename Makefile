@@ -78,7 +78,7 @@ dlsym-fwrite-wrapper1: dlsym-fwrite-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
-dlsym-fwrite-wrapper2: dlsym-fwrite-wrapper1.c
+dlsym-fwrite-wrapper2: dlsym-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
