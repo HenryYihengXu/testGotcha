@@ -128,11 +128,32 @@ gotcha-__xmknod-__xmknodat-main: gotcha-__xmknod-__xmknodat-main.c gotcha-__xmkn
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 clean:
-	rm -f gotcha-multiple-fopen-fread-main gotcha-mpi-main \
-	dlsym-fopen-fread-wrapper dlsym-fopen-fread-main \
-	dlsym-mpi-wrapper dlsym-mpi-main \
-	dlsym-fopen-fread-main-using-so dlsym-mpi-main-using-so \
-	gotcha-mknod-mknodat-main gotcha-__xmknod-__xmknodat-main \
-	fopen-fread-main-no-links dlsym-fopen-wrapper1 dlsym-fopen-wrapper2 \
+	rm -f fopen-fread-main-no-links \
+	mpi-main-no-links \
+	dlsym-fopen-wrapper1 \
+	dlsym-fopen-wrapper2 \
+	dlsym-fopen-wrapper1-with-init-fini \
+	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
+	dlsym-fopen-fread-wrapper \
+	dlsym-fopen-fread-main \
+	dlsym-fopen-fread-main-using-so \
+	\
+	dlsym-mpi-wrapper \
+	dlsym-mpi-wrapper-with-init-fini \
+	dlsym-mpi-main \
+	dlsym-mpi-main-using-so \
+	\
+	gotcha-multiple-fopen-wrapper \
+	gotcha-multiple-fread-wrapper \
+	gotcha-multiple-fopen-wrapper-with-init-fini \
+	gotcha-multiple-fread-wrapper-with-init-fini \
+	gotcha-multiple-fopen-fread-main \
+	\
+	gotcha-mpi-wrapper \
+	gotcha-mpi-wrapper-with-init-fini \
+	gotcha-mpi-main \
+	\
+	gotcha-mknod-mknodat-main \
+	gotcha-__xmknod-__xmknodat-main \
 	*.so *.o
