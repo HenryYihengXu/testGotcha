@@ -7,7 +7,7 @@
 #include <stdlib.h>
 
 size_t fwrite ( const void * ptr, size_t size, size_t count, FILE * stream ) {
-    printf("In fwrite dlsym wrapper 1 opening %s\n", filename);
+    printf("In fwrite dlsym wrapper 1");
     //sleep(1);
     typeof(&fwrite) __real_fwrite = dlsym(RTLD_NEXT, "fwrite");
     return __real_fwrite(ptr, size, count, stream);
