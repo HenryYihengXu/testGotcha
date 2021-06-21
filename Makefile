@@ -52,35 +52,35 @@ append-no-links: append-main.c
 
 dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fopen-wrapper1-with-init-fini: dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
 dlsym-fopen-wrapper2-with-init-fini: dlsym-fopen-wrapper2.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
 dlsym-fread-wrapper: dlsym-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fwrite-wrapper1: dlsym-fwrite-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fwrite-wrapper2: dlsym-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fopen-fread-main: fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
@@ -92,10 +92,10 @@ dlsym-fopen-fread-main-using-so: fopen-fread-main.c
 
 dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
 	$(MPICC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-mpi-wrapper-with-init-fini: dlsym-mpi-wrapper.c
-	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI
+	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
 dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
