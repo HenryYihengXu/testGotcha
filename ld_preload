@@ -15,6 +15,9 @@ export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper1.so\
 export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper2.so\
 :/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper1.so:/usr/lib64/libdl.so
 
+export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fwrite-wrapper2.so\
+:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fwrite-wrapper1.so:/usr/lib64/libdl.so
+
 export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper1-with-init-fini.so\
 :/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper2-with-init-fini.so
 
