@@ -16,6 +16,8 @@ all: fopen-fread-main-no-links \
 	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
 	dlsym-fopen-fread-wrapper \
+	dlsym-fwrite-wrapper1 \
+	dlsym-fwrite-wrapper2 \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
@@ -69,6 +71,14 @@ dlsym-fread-wrapper: dlsym-fread-wrapper.c
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-fread-wrapper: dlsym-fopen-fread-wrapper.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+dlsym-fwrite-wrapper1: dlsym-fwrite-wrapper1.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+dlsym-fwrite-wrapper2: dlsym-fwrite-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -fPIC
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
@@ -138,12 +148,16 @@ gotcha-__xmknod-__xmknodat-main: gotcha-__xmknod-__xmknodat-main.c gotcha-__xmkn
 clean:
 	rm -f fopen-fread-main-no-links \
 	mpi-main-no-links \
+	append-no-links \
+	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
 	dlsym-fopen-wrapper1-with-init-fini \
 	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
 	dlsym-fopen-fread-wrapper \
+	dlsym-fwrite-wrapper1 \
+	dlsym-fwrite-wrapper2 \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
