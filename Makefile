@@ -8,6 +8,8 @@ MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/incl
 
 all: fopen-fread-main-no-links \
 	mpi-main-no-links \
+	append-no-links \
+	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
 	dlsym-fopen-wrapper1-with-init-fini \
@@ -41,6 +43,9 @@ fopen-fread-main-no-links: fopen-fread-main.c
 mpi-main-no-links: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^
 
+append-no-links: append-main.c
+	$(CC) $(CFLAGS) -o $@ $^
+
 # ========================= dlsym fopen fread =======================
 
 dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
@@ -53,7 +58,7 @@ dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 
 dlsym-fopen-wrapper1-with-init-fini: dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -fPIC
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -fPIC -ldl
 
 dlsym-fopen-wrapper2-with-init-fini: dlsym-fopen-wrapper2.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^

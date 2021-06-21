@@ -6,8 +6,8 @@
 
 int main() {
     FILE *f;
-    f = fopen("./a.txt", "wb");
-    char buf[1024];
-    fread(buf, 1024, 1, f);
+    f = fopen("./a.txt", "a");
+    char* buf = "aaaaaaaa\n";
+    write(f, buf, 10);
     return 0;
 }
