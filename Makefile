@@ -21,8 +21,10 @@ all: fopen-fread-main-no-links \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
-	dlsym-mpi-wrapper \
-	dlsym-mpi-wrapper-with-init-fini \
+	dlsym-mpi-wrapper1 \
+	dlsym-mpi-wrapper1-with-init-fini \
+	dlsym-mpi-wrapper2 \
+	dlsym-mpi-wrapper2-with-init-fini \
 	dlsym-mpi-main \
 	dlsym-mpi-main-using-so \
 	\
@@ -90,18 +92,25 @@ dlsym-fopen-fread-main-using-so: fopen-fread-main.c
 
 # ========================= dlsym mpi =======================
 
-dlsym-mpi-wrapper: dlsym-mpi-wrapper.c
+dlsym-mpi-wrapper1: dlsym-mpi-wrapper1.c
 	$(MPICC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
-dlsym-mpi-wrapper-with-init-fini: dlsym-mpi-wrapper.c
+dlsym-mpi-wrapper2: dlsym-mpi-wrapper2.c
+	$(MPICC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
+
+dlsym-mpi-wrapper1-with-init-fini: dlsym-mpi-wrapper1.c
 	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
-dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper.o
+dlsym-mpi-wrapper2-with-init-fini: dlsym-mpi-wrapper2.c
+	$(MPICC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl	
+
+dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper1.o
 	$(MPICC) $(CFLAGS) -o $@ $^ -ldl
 
 dlsym-mpi-main-using-so: mpi-main.c
-	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper -ldl
+	$(MPICC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-mpi-wrapper1 -ldl
 
 # ========================= gotcha fopen fread =======================
 
@@ -158,8 +167,10 @@ clean:
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
-	dlsym-mpi-wrapper \
-	dlsym-mpi-wrapper-with-init-fini \
+	dlsym-mpi-wrapper1 \
+	dlsym-mpi-wrapper1-with-init-fini \
+	dlsym-mpi-wrapper2 \
+	dlsym-mpi-wrapper2-with-init-fini \
 	dlsym-mpi-main \
 	dlsym-mpi-main-using-so \
 	\
