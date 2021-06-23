@@ -25,3 +25,19 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     typeof(&fread) __real_fread = dlsym(RTLD_NEXT, "fread");
     return __real_fread(ptr, size, nmemb, stream);
 }
+
+#ifdef WITH_INIT_FINI
+static void init(void) __attribute__((constructor));
+static void fini(void) __attribute__((destructor));
+
+static void init(void)
+{
+    printf("fread dlsym wrapper initializing\n");
+}
+
+static void fini(void)
+{
+    printf("fread dlsym wrapper finalizing\n");
+}
+#endif
+
