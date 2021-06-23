@@ -19,6 +19,8 @@ all: fopen-fread-main-no-links \
 	dlsym-fopen-fread-wrapper \
 	dlsym-fwrite-wrapper1 \
 	dlsym-fwrite-wrapper2 \
+	dlsym-fwrite-wrapper1-with-init-fini \
+	dlsym-fwrite-wrapper2-with-init-fini \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
@@ -88,6 +90,14 @@ dlsym-fwrite-wrapper1: dlsym-fwrite-wrapper1.c
 dlsym-fwrite-wrapper2: dlsym-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
+
+dlsym-fwrite-wrapper1-with-init-fini: dlsym-fwrite-wrapper1.c
+#	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
+
+dlsym-fwrite-wrapper2-with-init-fini: dlsym-fwrite-wrapper2.c
+#	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
 dlsym-fopen-fread-main: fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 	$(CC) $(CFLAGS) -o $@ $^ -ldl
@@ -170,6 +180,8 @@ clean:
 	dlsym-fopen-fread-wrapper \
 	dlsym-fwrite-wrapper1 \
 	dlsym-fwrite-wrapper2 \
+	dlsym-fwrite-wrapper1-with-init-fini \
+	dlsym-fwrite-wrapper2-with-init-fini \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
