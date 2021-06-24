@@ -11,7 +11,7 @@ struct gotcha_binding_t fopen_wrap_actions [] = {
     {"fopen", gotcha_fopen_wrapper, &wrappee_fopen_handle}
 };
 
-int fopen_init(int priority) {
+int fopen2_init(int priority) {
     gotcha_set_priority("wrapper2", priority);
 
     enum gotcha_error_t result; 
@@ -35,7 +35,7 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
-    fopen_init(PRIORITY);
+    fopen2_init(PRIORITY);
     printf("fopen gotcha wrapper2 initializing\n");
 }
 
