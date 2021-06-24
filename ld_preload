@@ -23,7 +23,13 @@ export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper2-wit
 
 export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper-with-init-fini.so
 
-export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper.so
+export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper1.so
+
+export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper1.so\
+:\/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper2.so
+
+export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper1-with-init-fini.so\
+:\/g/g92/xu23/summer-2021/testGotcha/libdlsym-mpi-wrapper2-with-init-fini.so
 
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2\
 :/g/g92/xu23/summer-2021/testGotcha/libgotcha-mpi-wrapper-with-init-fini.so
@@ -39,5 +45,10 @@ export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper1.so\
 :/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper2.so\
 :/g/g92/xu23/summer-2021/testGotcha/libdlsym-fwrite-wrapper1.so\
 :/g/g92/xu23/summer-2021/testGotcha/libdlsym-fwrite-wrapper2.so
+
+export LD_PRELOAD=/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper1-with-init-fini.so\
+:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper2-with-init-fini.so\
+:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fwrite-wrapper1-with-init-fini.so\
+:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fwrite-wrapper2-with-init-fini.so
 
 export LD_PRELOAD=

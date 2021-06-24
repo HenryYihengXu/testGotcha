@@ -31,6 +31,10 @@ all: fopen-fread-main-no-links \
 	dlsym-mpi-main \
 	dlsym-mpi-main-using-so \
 	\
+	gotcha-fopen-wrapper1 \
+	gotcha-fopen-wrapper2 \
+	gotcha-fopen-wrapper1-with-init-fini \
+	gotcha-fopen-wrapper2-with-init-fini \
 	gotcha-multiple-fopen-wrapper \
 	gotcha-multiple-fread-wrapper \
 	gotcha-multiple-fopen-wrapper-with-init-fini \
@@ -129,6 +133,20 @@ dlsym-mpi-main-using-so: mpi-main.c
 
 # ========================= gotcha fopen fread =======================
 
+gotcha-fopen-wrapper1: gotcha-fopen-wrapper1.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+gotcha-fopen-wrapper2: gotcha-fopen-wrapper2.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+gotcha-fopen-wrapper1-with-init-fini: gotcha-fopen-wrapper1.c
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=1
+
+gotcha-fopen-wrapper2-with-init-fini: gotcha-fopen-wrapper2.c
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
+
 gotcha-multiple-fopen-wrapper: gotcha-multiple-fopen-wrapper.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
@@ -192,6 +210,10 @@ clean:
 	dlsym-mpi-main \
 	dlsym-mpi-main-using-so \
 	\
+	gotcha-fopen1-wrapper \
+	gotcha-fopen2-wrapper \
+	gotcha-fopen1-wrapper-with-init-fini \
+	gotcha-fopen2-wrapper-with-init-fini \
 	gotcha-multiple-fopen-wrapper \
 	gotcha-multiple-fread-wrapper \
 	gotcha-multiple-fopen-wrapper-with-init-fini \
