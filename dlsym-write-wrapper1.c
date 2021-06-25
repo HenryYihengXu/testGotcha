@@ -6,7 +6,7 @@
 #include <dlfcn.h>
 #include <stdlib.h>
 
-ssize_t fwrite (int fd, const void *buf, size_t count) {
+ssize_t write (int fd, const void *buf, size_t count) {
     printf("In write dlsym wrapper 1\n");
     //sleep(1);
     typeof(&write) __real_fwrite = dlsym(RTLD_NEXT, "write");
