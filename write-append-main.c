@@ -8,7 +8,7 @@
 
 int main() {
     // int fd = open("./a.txt", O_APPEND);
-    int fd = open("./a.txt", O_RDWR | O_APPEND);
+    int fd = open("./a.txt", O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
     if (fd == -1) {
         printf("open returned %d, errno: %d\n", fd, errno);
     }
