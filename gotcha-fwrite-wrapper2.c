@@ -6,7 +6,7 @@
 #include <stdarg.h>
 
 static gotcha_wrappee_handle_t wrappee_fwrite_handle;
-static FILE* gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream);
+static size_t gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream);
 struct gotcha_binding_t fwrite_wrap_actions [] = {
     {"fwrite", gotcha_fwrite_wrapper, &wrappee_fwrite_handle}
 };
@@ -22,7 +22,7 @@ int fwrite2_init(int priority) {
     }
 }
 
-static FILE* gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream) {
+static size_t gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream) {
     printf("In fwrite gotcha wrapper 2\n");
     //sleep(1);
     typeof(&gotcha_fwrite_wrapper) __real_fwrite = gotcha_get_wrappee(wrappee_fwrite_handle);

@@ -2,6 +2,10 @@
     "files.associations": {
         "string.h": "c",
         "stdarg.h": "c",
-        "gotcha-mknod-mknodat-wrapper.h": "c"
+        "gotcha-mknod-mknodat-wrapper.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "utility": "c"
     }
 }
