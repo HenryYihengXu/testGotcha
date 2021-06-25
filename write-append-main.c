@@ -3,11 +3,11 @@
 #include <string.h>
 #include <stdarg.h>
 #include <stdlib.h>
-#include <fcntl.h>
 
 int main() {
-    int fd = open("./a.txt", O_CREAT);
+    FILE *f;
+    f = fopen("./a.txt", "ab");
     char* buf = "aaaaaaaaa\n";
-    write(fd, buf, 10);
+    fwrite(buf, sizeof(char), 10, f);
     return 0;
 }

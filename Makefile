@@ -226,6 +226,7 @@ clean:
 	rm -f fopen-fread-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
+	write-append-no-links \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
