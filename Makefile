@@ -9,6 +9,7 @@ MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/incl
 all: fopen-fread-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
+	write-append-no-links \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
@@ -63,6 +64,9 @@ mpi-main-no-links: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^
 
 append-no-links: append-main.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+write-append-no-links: write-append-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 # ========================= dlsym fopen fread =======================
