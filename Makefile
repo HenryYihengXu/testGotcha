@@ -21,6 +21,10 @@ all: fopen-fread-main-no-links \
 	dlsym-fwrite-wrapper2 \
 	dlsym-fwrite-wrapper1-with-init-fini \
 	dlsym-fwrite-wrapper2-with-init-fini \
+	dlsym-write-wrapper1 \
+	dlsym-write-wrapper2 \
+	dlsym-write-wrapper1-with-init-fini \
+	dlsym-write-wrapper2-with-init-fini \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
@@ -104,6 +108,22 @@ dlsym-fwrite-wrapper1-with-init-fini: dlsym-fwrite-wrapper1.c
 	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
 dlsym-fwrite-wrapper2-with-init-fini: dlsym-fwrite-wrapper2.c
+#	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
+
+dlsym-write-wrapper1: dlsym-write-wrapper1.c
+	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
+
+dlsym-write-wrapper2: dlsym-write-wrapper2.c
+	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
+
+dlsym-write-wrapper1-with-init-fini: dlsym-write-wrapper1.c
+#	$(CC) $(CFLAGS) -o $@.o -c $^
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
+
+dlsym-write-wrapper2-with-init-fini: dlsym-write-wrapper2.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -ldl
 
@@ -218,6 +238,10 @@ clean:
 	dlsym-fwrite-wrapper2 \
 	dlsym-fwrite-wrapper1-with-init-fini \
 	dlsym-fwrite-wrapper2-with-init-fini \
+	dlsym-write-wrapper1 \
+	dlsym-write-wrapper2 \
+	dlsym-write-wrapper1-with-init-fini \
+	dlsym-write-wrapper2-with-init-fini \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
 	\
