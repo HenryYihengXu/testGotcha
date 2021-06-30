@@ -27,7 +27,7 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
-    printf("mpi dlsym wrapper 1 initializing\n");
+//    printf("mpi dlsym wrapper 1 initializing\n");
 }
 
 static void fini(void)

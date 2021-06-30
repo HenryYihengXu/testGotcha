@@ -36,7 +36,7 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     write2_init(PRIORITY);
-    printf("write gotcha wrapper 2 initializing\n");
+    //printf("write gotcha wrapper 2 initializing\n");
 }
 
 static void fini(void)

@@ -19,7 +19,7 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
-    printf("write dlsym wrapper 2 initializing\n");
+//    printf("write dlsym wrapper 2 initializing\n");
 }
 
 static void fini(void)

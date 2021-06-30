@@ -28,6 +28,7 @@ all: fopen-fread-main-no-links \
 	dlsym-write-wrapper2-with-init-fini \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
+	dlsym-write-append-main \
 	\
 	dlsym-mpi-wrapper1 \
 	dlsym-mpi-wrapper1-with-init-fini \
@@ -140,6 +141,9 @@ dlsym-fopen-fread-main: fopen-fread-main.c dlsym-fopen-fread-wrapper.o
 
 dlsym-fopen-fread-main-using-so: fopen-fread-main.c
 	$(CC) $(CFLAGS) -o $@ $^ -L/g/g92/xu23/summer-2021/testGotcha -ldlsym-fopen-fread-wrapper -ldl
+
+dlsym-write-append-main: write-append-main.c dlsym-write-wrapper1.o
+	$(CC) $(CFLAGS) -o $@ $^ -ldl
 
 # ========================= dlsym mpi =======================
 
@@ -267,6 +271,7 @@ clean:
 	dlsym-write-wrapper2-with-init-fini \
 	dlsym-fopen-fread-main \
 	dlsym-fopen-fread-main-using-so \
+	dlsym-write-append-main \
 	\
 	dlsym-mpi-wrapper1 \
 	dlsym-mpi-wrapper1-with-init-fini \
@@ -300,3 +305,4 @@ clean:
 	gotcha-mknod-mknodat-main \
 	gotcha-__xmknod-__xmknodat-main \
 	*.so *.o
+

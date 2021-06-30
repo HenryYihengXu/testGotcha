@@ -45,8 +45,11 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
+    FILE* fd = fopen("./constructor-out", "ab");
+    char* buf = "mpi gotcha wrapper initializing\n";
+    fwrite(buf, sizeof(char), 32, fd);
+    // printf("mpi gotcha wrapper initializing\n");
     mpi_gotcha_init();
-    printf("mpi gotcha wrapper initializing\n");
 }
 
 static void fini(void)
@@ -54,3 +57,4 @@ static void fini(void)
     printf("mpi gotcha wrapper finalizing\n");
 }
 #endif
+
