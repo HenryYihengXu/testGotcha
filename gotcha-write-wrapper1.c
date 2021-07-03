@@ -10,6 +10,7 @@ static ssize_t gotcha_write_wrapper(int fd, const void *buf, size_t count);
 struct gotcha_binding_t write_wrap_actions [] = {
     {"write", gotcha_write_wrapper, &wrappee_write_handle}
 };
+bool initialized = false;
 
 int write1_init(int priority) {
     gotcha_set_priority("wrapper1", priority);
@@ -36,11 +37,16 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     write1_init(PRIORITY);
+    if (!initialized) {
+        fprintf(stderr, "write gotcha wrapper 1 initializing\n");
+    }
     // printf("write gotcha wrapper 1 initializing\n");
 }
 
 static void fini(void)
 {
-    printf("write gotcha wrapper 1 finalizing\n");
+    if (!initialized) {
+        printf("write gotcha wrapper 1 finalizing\n");
+    }
 }
 #endif
