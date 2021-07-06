@@ -198,7 +198,7 @@ gotcha-fwrite-wrapper2-with-init-fini: gotcha-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
 
 gotcha-write-wrapper1: gotcha-write-wrapper1.c
-	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DSINGLETON
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 gotcha-write-wrapper2: gotcha-write-wrapper2.c
