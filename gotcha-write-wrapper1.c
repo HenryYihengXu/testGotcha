@@ -32,7 +32,7 @@ Singleton_t *getInstance(){
     pthread_mutex_lock(&lock);
     if(singleton != NULL) {
         singleton->counter++;
-        fprintf(stderr, "pid [%d]: singleton already initialized. singleton->counter = %d, the address of the counter is %p", 
+        fprintf(stderr, "pid [%d]: singleton already initialized. singleton->counter = %d, the address of the counter is %p\n", 
             getpid(), singleton->counter, &(singleton->counter));
         pthread_mutex_unlock(&lock);
         return singleton;
@@ -40,7 +40,7 @@ Singleton_t *getInstance(){
         singleton = (Singleton_t *)malloc(sizeof(Singleton_t));
         singleton->counter = 1;
         assert(singleton != NULL);
-        fprintf(stderr, "pid [%d]: singleton initializing. singleton->counter = %d, the address of the counter is %p", 
+        fprintf(stderr, "pid [%d]: singleton initializing. singleton->counter = %d, the address of the counter is %p\n", 
             getpid(), singleton->counter, &(singleton->counter));
         pthread_mutex_unlock(&lock);
         return singleton;
