@@ -8,12 +8,13 @@
 #include <errno.h>
 #include <dlfcn.h>
 
-
 // ssize_t write (int fd, const void *buf, size_t count) {
 //     printf("In executable write wrapper\n");
 //     typeof(&write) __real_fwrite = dlsym(RTLD_NEXT, "write");
 //     return __real_fwrite(fd, buf, count);
 // }
+
+int write2_init(int priority);
 
 int main() {
     // int fd = open("./a.txt", O_APPEND);
@@ -23,6 +24,16 @@ int main() {
     }
     char* buf = "aaaaaaaaa\n";
     int ret = write(fd, buf, 10);
+    if (ret == -1) {
+        printf("write returned %d, errno: %d\n", ret, errno);
+    }
+    int result;
+    result = write2_init(2);
+    if (result != 0) {
+        printf("write2 gotcha init returned %d, errno: %d\n", ret, errno);
+        return -1;
+    }
+    ret = write(fd, buf, 10);
     if (ret == -1) {
         printf("write returned %d, errno: %d\n", ret, errno);
     }

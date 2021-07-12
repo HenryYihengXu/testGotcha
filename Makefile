@@ -10,6 +10,7 @@ all: fopen-fread-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
+	write-append-mix-no-links \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
@@ -71,7 +72,10 @@ mpi-main-no-links: mpi-main.c
 append-no-links: append-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-write-append-no-links: write-append-main.c gotcha-write-wrapper2.c
+write-append-no-links: write-append-main.c
+	$(CC) $(CFLAGS) -o $@ $^
+
+write-append-mix-no-links: write-append-main.c gotcha-write-wrapper2.c
 	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 # ========================= dlsym fopen fread =======================
@@ -253,6 +257,7 @@ clean:
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
+	write-append-mix-no-links \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
