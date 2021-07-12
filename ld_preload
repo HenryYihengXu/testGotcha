@@ -94,6 +94,7 @@ export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
 
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
 /g/g92/xu23/summer-2021/testGotcha/libgotcha-fopen-wrapper1-with-init-fini.so:\
+/g/g92/xu23/summer-2021/testGotcha/libgotcha-fopen-wrapper2-with-init-fini.so:\
 /g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so:\
 /g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper-that-init-gotcha-fwrite-wrapper2.so
 

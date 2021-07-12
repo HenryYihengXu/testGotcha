@@ -45,6 +45,10 @@ all: fopen-fread-main-no-links \
 	gotcha-fopen-wrapper2 \
 	gotcha-fopen-wrapper1-with-init-fini \
 	gotcha-fopen-wrapper2-with-init-fini \
+	gotcha-fread-wrapper1 \
+	gotcha-fread-wrapper2 \
+	gotcha-fread-wrapper1-with-init-fini \
+	gotcha-fread-wrapper2-with-init-fini \
 	gotcha-fwrite-wrapper1 \
 	gotcha-fwrite-wrapper2 \
 	gotcha-fwrite-wrapper1-with-init-fini \
@@ -201,6 +205,20 @@ gotcha-fopen-wrapper1-with-init-fini: gotcha-fopen-wrapper1.c
 gotcha-fopen-wrapper2-with-init-fini: gotcha-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
 
+gotcha-fread-wrapper1: gotcha-fread-wrapper1.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+gotcha-fread-wrapper2: gotcha-fread-wrapper2.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+
+gotcha-fread-wrapper1-with-init-fini: gotcha-fread-wrapper1.c
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=1
+
+gotcha-fread-wrapper2-with-init-fini: gotcha-fread-wrapper2.c
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
+
 gotcha-fwrite-wrapper1: gotcha-fwrite-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
@@ -307,6 +325,10 @@ clean:
 	gotcha-fopen2-wrapper \
 	gotcha-fopen1-wrapper-with-init-fini \
 	gotcha-fopen2-wrapper-with-init-fini \
+	gotcha-fread-wrapper1 \
+	gotcha-fread-wrapper2 \
+	gotcha-fread-wrapper1-with-init-fini \
+	gotcha-fread-wrapper2-with-init-fini \
 	gotcha-fwrite-wrapper1 \
 	gotcha-fwrite-wrapper2 \
 	gotcha-fwrite-wrapper1-with-init-fini \
