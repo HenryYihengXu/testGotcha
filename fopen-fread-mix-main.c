@@ -9,7 +9,7 @@
 int fwrite2_init(int priority);
 
 FILE* fopen(const char *filename, const char *mode) {
-    printf("In fopen executable wrapper\n")
+    printf("In fopen executable wrapper\n");
     int result = fwrite2_init(2);
     if (result != 0) {
         printf("fwrite2_init failed\n");
