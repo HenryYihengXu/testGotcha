@@ -6,8 +6,7 @@ GOTCHA_INCLUDE=/g/g92/xu23/apps/GOTCHA-1.0.3/include
 MPI_LIB=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/lib
 MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/include
 
-all: 
-	fopen-fread-main-no-links \
+all: fopen-fread-main-no-links \
 	fopen-fread-mix-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
@@ -69,7 +68,7 @@ fopen-fread-main-no-links: fopen-fread-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 fopen-fread-mix-main-no-links: fopen-fread-mix-main.c gotcha-write-wrapper2.c
-	$(CC) $(CFLAGS) -o $@ $^ -ldl
+	$(CC) $(CFLAGS) -o $@ $^ -ldl -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 mpi-main-no-links: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^
