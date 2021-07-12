@@ -16,6 +16,7 @@ int write2_init(int priority) {
 
     enum gotcha_error_t result; 
     result = gotcha_wrap(write_wrap_actions, sizeof(write_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper2");
+    fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
     if (result != GOTCHA_SUCCESS) {
       fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
       return -1;

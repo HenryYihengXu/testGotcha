@@ -8,6 +8,7 @@
         "initializer_list": "c",
         "utility": "c",
         "pthread.h": "c",
-        "gotcha-write-wrapper2.h": "c"
+        "gotcha-write-wrapper2.h": "c",
+        "functional": "c"
     }
 }
