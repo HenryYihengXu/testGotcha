@@ -7,7 +7,6 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <dlfcn.h>
-#include "gptcha-write-wrapper2.h"
 
 // ssize_t write (int fd, const void *buf, size_t count) {
 //     printf("In executable write wrapper\n");
