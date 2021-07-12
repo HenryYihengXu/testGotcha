@@ -7,7 +7,7 @@ MPI_LIB=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/lib
 MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/include
 
 all: fopen-fread-main-no-links \
-	fopen-fread-mix-main-no-links \
+	fopen-fwrite-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
@@ -15,6 +15,7 @@ all: fopen-fread-main-no-links \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
+	dlsym-fopen-wrapper-that-init-gotcha \
 	dlsym-fopen-wrapper1-with-init-fini \
 	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
@@ -67,8 +68,8 @@ all: fopen-fread-main-no-links \
 fopen-fread-main-no-links: fopen-fread-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-fopen-fread-mix-main-no-links: fopen-fread-mix-main.c gotcha-fwrite-wrapper2.c
-	$(CC) $(CFLAGS) -o $@ $^ -ldl -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+fopen-fwrite-main-no-links: fopen-fwrite-main.c
+	$(CC) $(CFLAGS) -o $@ $^
 
 mpi-main-no-links: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^
@@ -91,6 +92,10 @@ dlsym-fopen-wrapper1: dlsym-fopen-wrapper1.c
 dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
+
+dlsym-fopen-wrapper-that-init-gotcha: dlsym-fopen-wrapper-that-init-gotcha.c
+	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 dlsym-fopen-wrapper1-with-init-fini: dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
@@ -259,7 +264,7 @@ gotcha-__xmknod-__xmknodat-main: gotcha-__xmknod-__xmknodat-main.c gotcha-__xmkn
 clean:
 	rm -f \
 	fopen-fread-main-no-links \
-	fopen-fread-mix-main-no-links \
+	fopen-fwrite-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
@@ -267,6 +272,7 @@ clean:
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
+	dlsym-fopen-wrapper-that-init-gotcha \
 	dlsym-fopen-wrapper1-with-init-fini \
 	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
