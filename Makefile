@@ -15,7 +15,7 @@ all: fopen-fread-main-no-links \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
-	dlsym-fopen-wrapper-that-init-gotcha \
+	dlsym-fopen-wrapper-that-init-gotcha-fwrite-wrapper2 \
 	dlsym-fopen-wrapper1-with-init-fini \
 	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
@@ -93,7 +93,7 @@ dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
-dlsym-fopen-wrapper-that-init-gotcha: dlsym-fopen-wrapper-that-init-gotcha.c
+dlsym-fopen-wrapper-that-init-gotcha-fwrite-wrapper2: dlsym-fopen-wrapper-that-init-gotcha-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
@@ -272,7 +272,7 @@ clean:
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
-	dlsym-fopen-wrapper-that-init-gotcha \
+	dlsym-fopen-wrapper-that-init-gotcha-fwrite-wrapper2 \
 	dlsym-fopen-wrapper1-with-init-fini \
 	dlsym-fopen-wrapper2-with-init-fini \
 	dlsym-fread-wrapper \
