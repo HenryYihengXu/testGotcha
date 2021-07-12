@@ -12,6 +12,8 @@ struct gotcha_binding_t write_wrap_actions [] = {
 };
 
 int write2_init(int priority) {
+    printf("In write2_init\n");
+    fprintf(stderr, "In write2_init\n");
     gotcha_set_priority("wrapper2", priority);
 
     enum gotcha_error_t result; 

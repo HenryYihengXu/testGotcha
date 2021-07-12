@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <dlfcn.h>
+#include "gptcha-write-wrapper2.h"
 
 // ssize_t write (int fd, const void *buf, size_t count) {
 //     printf("In executable write wrapper\n");
@@ -17,6 +18,8 @@
 int write2_init(int priority);
 
 int main() {
+    int result;
+    result = write2_init(2);
     // int fd = open("./a.txt", O_APPEND);
     int fd = open("./a.txt", O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
     if (fd == -1) {
@@ -27,8 +30,7 @@ int main() {
     if (ret == -1) {
         printf("write returned %d, errno: %d\n", ret, errno);
     }
-    int result;
-    result = write2_init(2);
+    
     if (result != 0) {
         printf("write2 gotcha init returned %d, errno: %d\n", ret, errno);
         return -1;
