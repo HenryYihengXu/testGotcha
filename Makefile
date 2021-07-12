@@ -72,7 +72,7 @@ append-no-links: append-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 write-append-no-links: write-append-main.c gotcha-write-wrapper2.c
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 # ========================= dlsym fopen fread =======================
 

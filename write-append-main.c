@@ -35,7 +35,7 @@ int main() {
         printf("write2 gotcha init returned %d, errno: %d\n", ret, errno);
         return -1;
     }
-    int ret = write(fd, buf, 10);
+    ret = write(fd, buf, 10);
     if (ret == -1) {
         printf("write returned %d, errno: %d\n", ret, errno);
     }
