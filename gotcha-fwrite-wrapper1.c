@@ -15,12 +15,12 @@ int fwrite1_init(int priority) {
     enum gotcha_error_t result; 
     result = gotcha_wrap(fwrite_wrap_actions, sizeof(fwrite_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper1");
     if (result != GOTCHA_SUCCESS) {
-      printf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
     result = gotcha_set_priority("wrapper1", priority);
     if (result != GOTCHA_SUCCESS) {
-      printf(stderr, "gotcha_set_priority returned %d\n", (int) result);
+      printf("gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
     return 0;
