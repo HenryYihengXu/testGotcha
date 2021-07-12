@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <dlfcn.h>
+#include "gotcha-write-wrapper2.h"
 
 
 // ssize_t write (int fd, const void *buf, size_t count) {
@@ -14,9 +15,6 @@
 //     typeof(&write) __real_fwrite = dlsym(RTLD_NEXT, "write");
 //     return __real_fwrite(fd, buf, count);
 // }
-
-// int write1_init(int priority);
-int write2_init(int priority);
 
 int main() {
     // int fd = open("./a.txt", O_APPEND);
