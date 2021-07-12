@@ -40,7 +40,7 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     fwrite2_init(PRIORITY);
-    printf("fwrite gotcha wrapper 1 initializing with priority = %d\n", PRIORITY);
+    printf("fwrite gotcha wrapper 2 initializing with priority = %d\n", PRIORITY);
 }
 
 static void fini(void)

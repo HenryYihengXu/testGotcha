@@ -228,10 +228,10 @@ gotcha-fwrite-wrapper2: gotcha-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 gotcha-fwrite-wrapper1-with-init-fini: gotcha-fwrite-wrapper1.c
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=1
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
 
 gotcha-fwrite-wrapper2-with-init-fini: gotcha-fwrite-wrapper2.c
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=1
 
 gotcha-write-wrapper1: gotcha-write-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
