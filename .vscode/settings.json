@@ -9,6 +9,7 @@
         "utility": "c",
         "pthread.h": "c",
         "gotcha-write-wrapper2.h": "c",
-        "functional": "c"
+        "functional": "c",
+        "dlfcn.h": "c"
     }
 }
