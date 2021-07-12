@@ -15,6 +15,9 @@
 //     return __real_fwrite(fd, buf, count);
 // }
 
+// int write1_init(int priority);
+int write2_init(int priority);
+
 int main() {
     // int fd = open("./a.txt", O_APPEND);
     int fd = open("./a.txt", O_CREAT | O_RDWR | O_APPEND, S_IRWXU);
@@ -22,6 +25,16 @@ int main() {
         printf("open returned %d, errno: %d\n", fd, errno);
     }
     char* buf = "aaaaaaaaa\n";
+    int ret = write(fd, buf, 10);
+    if (ret == -1) {
+        printf("write returned %d, errno: %d\n", ret, errno);
+    }
+    int result;
+    result = write2_init(2);
+    if (result != 0) {
+        printf("write2 gotcha init returned %d, errno: %d\n", ret, errno);
+        return -1;
+    }
     int ret = write(fd, buf, 10);
     if (ret == -1) {
         printf("write returned %d, errno: %d\n", ret, errno);

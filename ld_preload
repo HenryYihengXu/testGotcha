@@ -1,7 +1,11 @@
+jsrun -n 2 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/recorder-install/lib/librecorder.so
+
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2\
 :/g/g92/xu23/summer-2021/recorder-install/lib/librecorder.so
 
 export RECORDER_TRACES_DIR=/g/g92/xu23
+
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so
 
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2\
 :/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so

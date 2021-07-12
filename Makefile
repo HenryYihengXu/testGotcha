@@ -71,7 +71,7 @@ mpi-main-no-links: mpi-main.c
 append-no-links: append-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-write-append-no-links: write-append-main.c
+write-append-no-links: write-append-main.c gotcha-write-wrapper2.c
 	$(CC) $(CFLAGS) -o $@ $^
 
 # ========================= dlsym fopen fread =======================

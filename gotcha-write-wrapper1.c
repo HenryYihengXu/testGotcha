@@ -14,40 +14,6 @@ struct gotcha_binding_t write_wrap_actions [] = {
     {"write", gotcha_write_wrapper, &wrappee_write_handle}
 };
 
-#ifdef SHMEM
-#include <sys/shm.h>
-int shm_id;
-void *shm_addr;
-#elif SINGLETON
-#include <pthread.h>
-typedef struct Singleton {
-    char sharedData[256];
-    int counter;    
-} Singleton_t;
- 
-static Singleton_t *singleton = NULL;
-static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
-
-Singleton_t *getInstance(){
-    pthread_mutex_lock(&lock);
-    if(singleton != NULL) {
-        singleton->counter++;
-        fprintf(stderr, "pid [%d]: singleton already initialized. singleton->counter = %d, the address of the counter is %p\n", 
-            getpid(), singleton->counter, &(singleton->counter));
-        pthread_mutex_unlock(&lock);
-        return singleton;
-    } else {
-        singleton = (Singleton_t *)malloc(sizeof(Singleton_t));
-        singleton->counter = 1;
-        assert(singleton != NULL);
-        fprintf(stderr, "pid [%d]: singleton initializing. singleton->counter = %d, the address of the counter is %p\n", 
-            getpid(), singleton->counter, &(singleton->counter));
-        pthread_mutex_unlock(&lock);
-        return singleton;
-    }
-}
-#endif
-
 int write1_init(int priority) {
     gotcha_set_priority("wrapper1", priority);
 
@@ -58,6 +24,39 @@ int write1_init(int priority) {
       return -1;
     }
 }
+
+#ifdef SHMEM
+#include <sys/shm.h>
+int shm_id;
+void *shm_addr;
+#elif SINGLETON
+#include <pthread.h>
+int *SingletonInt() {
+    static int instance = 0;
+    return &instance;
+}
+ 
+static pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
+
+void initialize() {
+    pthread_mutex_lock(&lock);
+    int* i = SingletonInt();
+    if(*i == 0) {
+        i++
+        fprintf(stderr, "pid [%d]: singleton already initialized. singleton->counter = %d, the address of the counter is %p\n", 
+            getpid(), singleton->counter, &(singleton->counter));
+        pthread_mutex_unlock(&lock);
+    } else {
+        singleton = (Singleton_t *)malloc(sizeof(Singleton_t));
+        singleton->counter = 1;
+        assert(singleton != NULL);
+        fprintf(stderr, "pid [%d]: singleton initializing. singleton->counter = %d, the address of the counter is %p\n", 
+            getpid(), singleton->counter, &(singleton->counter));
+        write1_init(PRIORITY);
+        pthread_mutex_unlock(&lock);
+    }
+}
+#endif
 
 static ssize_t gotcha_write_wrapper(int fd, const void *buf, size_t count) {
     fprintf(stderr, "In write gotcha wrapper 1\n");
@@ -97,13 +96,7 @@ static void init(void)
         fprintf(stderr, "write gotcha wrapper 1 already initialized\n");
     }
     #elif SINGLETON
-    Singleton_t *initialized = getInstance();
-    if (initialized->counter == 1) {
-        write1_init(PRIORITY);
-        fprintf(stderr, "write gotcha wrapper 1 initializing\n");
-    } else {
-        fprintf(stderr, "write gotcha wrapper 1 already initialized\n");
-    }
+    initialize();
     #else
     write1_init(PRIORITY);
     fprintf(stderr, "write gotcha wrapper 1 initializing\n");
