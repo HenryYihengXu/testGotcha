@@ -11,7 +11,7 @@ all: fopen-fread-main-no-links \
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
-	write-append-mix-no-links \
+	write-append-mix \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
@@ -263,7 +263,7 @@ clean:
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
-	write-append-mix-no-links \
+	write-append-mix \
 	\
 	dlsym-fopen-wrapper1 \
 	dlsym-fopen-wrapper2 \
