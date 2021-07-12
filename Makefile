@@ -200,10 +200,10 @@ gotcha-fopen-wrapper2: gotcha-fopen-wrapper2.c
 	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
 
 gotcha-fopen-wrapper1-with-init-fini: gotcha-fopen-wrapper1.c
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=1
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
 
 gotcha-fopen-wrapper2-with-init-fini: gotcha-fopen-wrapper2.c
-	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=2
+	$(CC) $(CFLAGS) -shared -o lib$@.so $^ -DWITH_INIT_FINI -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE) -DPRIORITY=1
 
 gotcha-fread-wrapper1: gotcha-fread-wrapper1.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
