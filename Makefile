@@ -67,7 +67,7 @@ all: fopen-fread-main-no-links \
 fopen-fread-main-no-links: fopen-fread-main.c
 	$(CC) $(CFLAGS) -o $@ $^
 
-fopen-fread-mix-main-no-links: fopen-fread-mix-main.c gotcha-write-wrapper2.c
+fopen-fread-mix-main-no-links: fopen-fread-mix-main.c gotcha-fwrite-wrapper2.c
 	$(CC) $(CFLAGS) -o $@ $^ -ldl -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
 
 mpi-main-no-links: mpi-main.c

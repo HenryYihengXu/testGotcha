@@ -14,7 +14,7 @@ FILE* fopen(const char *filename, const char *mode) {
         printf("fwrite2_init failed\n");
         return -1;
     }
-    typeof(&fopen) __real_fopen = dlsym(RTLD_NEXT, fopen);
+    typeof(&fopen) __real_fopen = dlsym(RTLD_NEXT, "fopen");
     return __real_fopen(filename, mode);
 }
 
