@@ -95,7 +95,7 @@ dlsym-fopen-wrapper2: dlsym-fopen-wrapper2.c
 
 dlsym-fopen-wrapper-that-init-gotcha: dlsym-fopen-wrapper-that-init-gotcha.c
 	$(CC) $(CFLAGS) -o $@.o -c $^ -L$(GOTCHA_LIB) -lgotcha -I$(GOTCHA_INCLUDE)
-	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o
+	$(CC) $(CFLAGS) -shared -o lib$@.so $@.o -ldl
 
 dlsym-fopen-wrapper1-with-init-fini: dlsym-fopen-wrapper1.c
 #	$(CC) $(CFLAGS) -o $@.o -c $^
