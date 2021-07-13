@@ -31,7 +31,7 @@ int fwrite2_init(int priority) {
 }
 
 static size_t gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream) {
-    printf("In fwrite gotcha wrapper 2\n");
+    printf("In fwrite-wrapper2-init-by-dlsym-fread gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha_fwrite_wrapper) __real_fwrite = gotcha_get_wrappee(wrappee_fwrite_handle);
     return __real_fwrite(ptr, size, count, stream);
@@ -52,7 +52,7 @@ char *recover_filename(FILE *f)
 
 size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     char* filename = recover_filename(stream);
-    printf("In fread dlsym wrapper reading %s\n", filename);
+    printf("In fwrite-wrapper2-init-by-dlsym-fread dlsym wrapper reading %s\n", filename);
     typeof(&fread) __real_fread = dlsym(RTLD_NEXT, "fread");
     int result = fwrite2_init(3);
     if (result != 0) {
