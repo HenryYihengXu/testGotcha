@@ -7,7 +7,7 @@
 #include <dlfcn.h>
 #include <mpi.h>
 
-int main() {
+int main(int argc, char *argv[]) {
     MPI_Init(&argc, &argv);
     int rank, np;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
