@@ -31,14 +31,14 @@ int fread_fwrite_init(int priority) {
 }
 
 static size_t gotcha_fread_wrapper(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-    printf("In fread-fwrite fread gotcha wrapper 1\n");
+    printf("In fread-fwrite fread gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha_fread_wrapper) __real_fread = gotcha_get_wrappee(wrappee_fread_handle);
     return __real_fread(ptr, size, nmemb, stream);
 }
 
 static size_t gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream) {
-    printf("In fread-fwrite fwrite gotcha wrapper 1\n");
+    printf("In fread-fwrite fwrite gotcha wrapper\n");
     //sleep(1);
     typeof(&gotcha_fwrite_wrapper) __real_fwrite = gotcha_get_wrappee(wrappee_fwrite_handle);
     return __real_fwrite(ptr, size, count, stream);
