@@ -54,7 +54,7 @@ size_t fread(void *ptr, size_t size, size_t nmemb, FILE *stream) {
     char* filename = recover_filename(stream);
     printf("In fwrite-wrapper2-init-by-dlsym-fread dlsym wrapper reading %s\n", filename);
     typeof(&fread) __real_fread = dlsym(RTLD_NEXT, "fread");
-    int result = fwrite2_init(3);
+    int result = fwrite2_init(2);
     if (result != 0) {
         printf("fwrite2_init failed\n");
         return -1;

@@ -40,7 +40,7 @@ FILE* fopen(const char *filename, const char *mode) {
     printf("In fopen dlsym wrapper opening %s\n", filename);
     //sleep(1);
     typeof(&fopen) __real_fopen = dlsym(RTLD_NEXT, "fopen");
-    int result = fwrite2_init(3);
+    int result = fwrite2_init(2);
     if (result != 0) {
         printf("fwrite2_init failed\n");
         return NULL;
