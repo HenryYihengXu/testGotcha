@@ -20,7 +20,7 @@ int fread_init() {
     printf("multiple-fread-wrapper1 initializing with priority = %d\n", 3);
     printf("multiple-fread-wrapper2 initializing with priority = %d\n", 2);
     enum gotcha_error_t result; 
-    result = gotcha_set_priority("multiple-fread-wrapper1", 3);
+    result = gotcha_set_priority("multiple-fread-wrapper1", 1);
     if (result != GOTCHA_SUCCESS) {
       printf("Error: multiple-fread-wrapper1 gotcha_set_priority returned %d\n", (int) result);
       return -1;

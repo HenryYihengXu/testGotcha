@@ -20,7 +20,7 @@ int fopen_init() {
     printf("multiple-fopen-wrapper1 initializing with priority = %d\n", 3);
     printf("multiple-fopen-wrapper2 initializing with priority = %d\n", 2);
     enum gotcha_error_t result; 
-    result = gotcha_set_priority("multiple-fopen-wrapper1", 3);
+    result = gotcha_set_priority("multiple-fopen-wrapper1", 1);
     if (result != GOTCHA_SUCCESS) {
       printf("Error: multiple-fopen-wrapper1 gotcha_set_priority returned %d\n", (int) result);
       return -1;
