@@ -19,7 +19,6 @@ int fopen2_init(int priority) {
       printf("Error: fopen-wrapper2 gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
-    enum gotcha_error_t result; 
     result = gotcha_wrap(fopen_wrap_actions, sizeof(fopen_wrap_actions)/sizeof(struct gotcha_binding_t), "fopen-wrapper2");
     if (result != GOTCHA_SUCCESS) {
       fprintf(stderr, "Error: fopen-wrapper2 gotcha_wrap returned %d\n", (int) result);

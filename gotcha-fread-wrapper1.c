@@ -19,7 +19,6 @@ int fread1_init(int priority) {
       printf("Error: fread-wrapper1 gotcha_set_priority returned %d\n", (int) result);
       return -1;
     } 
-    enum gotcha_error_t result; 
     result = gotcha_wrap(fread_wrap_actions, sizeof(fread_wrap_actions)/sizeof(struct gotcha_binding_t), "fread-wrapper1");
     if (result != GOTCHA_SUCCESS) {
       fprintf(stderr, "Error: fread-wrapper1 gotcha_wrap returned %d\n", (int) result);
