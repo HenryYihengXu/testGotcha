@@ -8,6 +8,7 @@ MPI_INCLUDE=/usr/tce/packages/spectrum-mpi/ibm/spectrum-mpi-rolling-release/incl
 
 all: fopen-fread-main-no-links \
 	fopen-fread-fwrite-main-no-links \
+	fopen-fread-fwrite-main-with-mpi-no-links \
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
@@ -77,6 +78,9 @@ fopen-fread-main-no-links: fopen-fread-main.c
 
 fopen-fread-fwrite-main-no-links: fopen-fread-fwrite-main.c
 	$(CC) $(CFLAGS) -o $@ $^
+
+fopen-fread-fwrite-main-with-mpi-no-links: fopen-fread-fwrite-main-with-mpi.c
+	$(MPICC) $(CFLAGS) -o $@ $^
 
 mpi-main-no-links: mpi-main.c
 	$(MPICC) $(CFLAGS) -o $@ $^
@@ -297,6 +301,7 @@ clean:
 	rm -f \
 	fopen-fread-main-no-links \
 	fopen-fread-fwrite-main-no-links \
+	fopen-fread-fwrite-main-with-mpi-no-links \
 	mpi-main-no-links \
 	append-no-links \
 	write-append-no-links \
