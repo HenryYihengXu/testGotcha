@@ -15,14 +15,18 @@ struct gotcha_binding_t fwrite_wrap_actions [] = {
 };
 
 int fwrite2_init(int priority) {
-    gotcha_set_priority("wrapper2", priority);
-
-    enum gotcha_error_t result; 
-    result = gotcha_wrap(fwrite_wrap_actions, sizeof(fwrite_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper2");
+    printf("fwrite-wrapper2-init-by-dlsym-fopen initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("fwrite-wrapper2-init-by-dlsym-fopen", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: fwrite-wrapper2-init-by-dlsym-fopen gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    } 
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: fwrite-wrapper2-init-by-dlsym-fopen gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
+    return 0;
 }
 
 static size_t gotcha_fwrite_wrapper(const void * ptr, size_t size, size_t count, FILE * stream) {
@@ -39,7 +43,7 @@ FILE* fopen(const char *filename, const char *mode) {
     int result = fwrite2_init(2);
     if (result != 0) {
         printf("fwrite2_init failed\n");
-        return -1;
+        return NULL;
     }
     return __real_fopen(filename, mode);
 }

@@ -15,18 +15,18 @@ struct gotcha_binding_t fwrite_wrap_actions [] = {
 };
 
 int fwrite2_init(int priority) {
+    printf("fwrite-wrapper2-init-by-dlsym-fread in dlsym fread wrapper initializing with priority = %d\n", priority);
     enum gotcha_error_t result; 
-    result = gotcha_set_priority("wrapper2", priority);
+    result = gotcha_set_priority("fwrite-wrapper2-init-by-dlsym-fread", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_set_priority returned %d\n", (int) result);
+      fprintf(stderr, "Error: fwrite-wrapper2-init-by-dlsym-fread gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
-    result = gotcha_wrap(fwrite_wrap_actions, sizeof(fwrite_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper2");
+    result = gotcha_wrap(fwrite_wrap_actions, sizeof(fwrite_wrap_actions)/sizeof(struct gotcha_binding_t), "fwrite-wrapper2-init-by-dlsym-fread");
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      fprintf(stderr, "Error: fwrite-wrapper2-init-by-dlsym-fread gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
-    printf("gotcha fwrite2 wrapper in dlsym fread wrapper initializing with priority = %d\n", priority);
     return 0;
 }
 
