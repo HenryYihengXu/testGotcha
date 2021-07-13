@@ -63,23 +63,45 @@ export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2\
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
 /g/g92/xu23/summer-2021/testGotcha/libdlsym-fopen-wrapper-that-init-gotcha-fwrite-wrapper2.so
 
-export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
-/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
-/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so
+============================================================================
 
+# works
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
-/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
-/g/g92/xu23/summer-2021/testGotcha/libgotcha-fread-fwrite-wrapper-with-init-fini.so
-
-export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
+/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so:\
 /g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
 /g/g92/xu23/summer-2021/testGotcha/libgotcha-fread-fwrite-wrapper-with-init-fini.so
-/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so
 
+# does not work if recorder's priority = 10 and fwrite-wrapper1's priority = 1
+# work if recorder's priority = 10 and fwrite-wrapper1's priority = 3
+export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
+/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so:\
+/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
+/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so
+
+# does not work
 export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
 /g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
 /g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so
 
+# does not work if recorder's priority = 10 and fread-fwrite-wrapper's priority = 1
+# works if recorder's priority = 10 and fread-fwrite-wrapper's priority = 3
+export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
+/g/g92/xu23/summer-2021/testGotcha/libgotcha-fread-fwrite-wrapper-with-init-fini.so:\
+/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
+/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so
+
+# works
+export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:\
+/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so:\
+/g/g92/xu23/summer-2021/testGotcha/libgotcha-fread-fwrite-wrapper-with-init-fini.so:\
+/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:\
+/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so
+
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:/g/g92/xu23/summer-2021/testGotcha/libgotcha-fread-fwrite-wrapper-with-init-fini.so ./fopen-fread-fwrite-main-no-links
+
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/testGotcha/libgotcha-fwrite-wrapper1-with-init-fini.so:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so ./fopen-fread-fwrite-main-no-links
+
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/testGotcha/libdlsym-fread-wrapper-that-init-gotcha-fwrite-wrapper2.so:/g/g92/xu23/summer-2021/testGotcha/libgotcha-fread-fwrite-wrapper-with-init-fini.so:/g/g92/xu23/summer-2021/recorder-install-with-ini/lib/librecorder.so ./fopen-fread-fwrite-main-no-links
 
 export LD_PRELOAD=
 export LD_DEBUG=all
