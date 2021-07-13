@@ -12,14 +12,20 @@ struct gotcha_binding_t fread_wrap_actions [] = {
 };
 
 int fread1_init(int priority) {
-    gotcha_set_priority("wrapper1", priority);
-
-    enum gotcha_error_t result; 
-    result = gotcha_wrap(fread_wrap_actions, sizeof(fread_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper1");
+    printf("fread gotcha wrapper 1 initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("fread-wrapper1", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: fread-wrapper1 gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    } 
+    enum gotcha_error_t result; 
+    result = gotcha_wrap(fread_wrap_actions, sizeof(fread_wrap_actions)/sizeof(struct gotcha_binding_t), "fread-wrapper1");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: fread-wrapper1 gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
+    return 0;
 }
 
 static size_t gotcha_fread_wrapper(void *ptr, size_t size, size_t nmemb, FILE *stream) {
@@ -36,7 +42,6 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     fread1_init(PRIORITY);
-    printf("fread gotcha wrapper 1 initializing\n");
 }
 
 static void fini(void)

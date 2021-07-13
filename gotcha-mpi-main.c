@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[]) {
     int result;
-    result = mpi_gotcha_init();
+    result = mpi_gotcha_init(1);
     if (result != 0) {
         return -1;
     }

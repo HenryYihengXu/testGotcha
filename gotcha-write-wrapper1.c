@@ -15,14 +15,19 @@ struct gotcha_binding_t write_wrap_actions [] = {
 };
 
 int write1_init(int priority) {
-    gotcha_set_priority("wrapper1", priority);
-
-    enum gotcha_error_t result; 
-    result = gotcha_wrap(write_wrap_actions, sizeof(write_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper1");
+    printf("write gotcha wrapper 1 initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("write-wrapper1", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: write-wrapper1 gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    } 
+    result = gotcha_wrap(write_wrap_actions, sizeof(write_wrap_actions)/sizeof(struct gotcha_binding_t), "write-wrapper1");
+    if (result != GOTCHA_SUCCESS) {
+      printf("Error: write-wrapper1 gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
+    return 0;
 }
 
 #ifdef SHMEM
@@ -99,7 +104,6 @@ static void init(void)
     initialize();
     #else
     write1_init(PRIORITY);
-    fprintf(stderr, "write gotcha wrapper 1 initializing\n");
     #endif /* SHMEM */
 }
 

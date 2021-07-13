@@ -17,32 +17,41 @@ struct gotcha_binding_t fopen_wrap_actions2 [] = {
 };
 
 int fopen_init() {
-    gotcha_set_priority("wrapper1", 3);
-    gotcha_set_priority("wrapper2", 2);
-
+    printf("multiple-fopen-wrapper1 initializing with priority = %d\n", 3);
+    printf("multiple-fopen-wrapper2 initializing with priority = %d\n", 2);
     enum gotcha_error_t result; 
-    result = gotcha_wrap(fopen_wrap_actions1, sizeof(fopen_wrap_actions1)/sizeof(struct gotcha_binding_t), "wrapper1");
+    result = gotcha_set_priority("multiple-fopen-wrapper1", 3);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: multiple-fopen-wrapper1 gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
-    result = gotcha_wrap(fopen_wrap_actions2, sizeof(fopen_wrap_actions2)/sizeof(struct gotcha_binding_t), "wrapper2");
+    result = gotcha_set_priority("multiple-fopen-wrapper2", 2);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: multiple-fopen-wrapper2 gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
-    
+    result = gotcha_wrap(fopen_wrap_actions1, sizeof(fopen_wrap_actions1)/sizeof(struct gotcha_binding_t), "multiple-fopen-wrapper1");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: multiple-fopen-wrapper1 gotcha_wrap returned %d\n", (int) result);
+      return -1;
+    }
+    result = gotcha_wrap(fopen_wrap_actions2, sizeof(fopen_wrap_actions2)/sizeof(struct gotcha_binding_t), "multiple-fopen-wrapper2");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: multiple-fopen-wrapper2 gotcha_wrap returned %d\n", (int) result);
+      return -1;
+    }
+    return 0;
 }
 
 static FILE* gotcha_fopen_wrapper1(const char *filename, const char *mode) {
-    printf("In fopen gotcha wrapper1 opening %s\n", filename);
+    printf("In multiple-fopen-wrapper1 opening %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fopen_wrapper1) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle1);
     return __real_fopen(filename, mode);
 }
 
 static FILE* gotcha_fopen_wrapper2(const char *filename, const char *mode) {
-    printf("In fopen gotcha wrapper2 opening %s\n", filename);
+    printf("In multiple-fopen-wrapper2 opening %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fopen_wrapper2) __real_fopen = gotcha_get_wrappee(wrappee_fopen_handle2);
     return __real_fopen(filename, mode);
@@ -55,7 +64,6 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     fopen_init();
-    printf("fopen gotcha wrapper initializing\n");
 }
 
 static void fini(void)

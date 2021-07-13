@@ -12,14 +12,19 @@ struct gotcha_binding_t write_wrap_actions [] = {
 };
 
 int write2_init(int priority) {
-    gotcha_set_priority("wrapper2", priority);
-
-    enum gotcha_error_t result; 
-    result = gotcha_wrap(write_wrap_actions, sizeof(write_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper2");
+    printf("write gotcha wrapper 2 initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("write-wrapper2", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: write-wrapper2 gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    } 
+    result = gotcha_wrap(write_wrap_actions, sizeof(write_wrap_actions)/sizeof(struct gotcha_binding_t), "write-wrapper2");
+    if (result != GOTCHA_SUCCESS) {
+      printf("Error: write-wrapper2 gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
+    return 0;
 }
 
 static ssize_t gotcha_write_wrapper(int fd, const void *buf, size_t count) {
@@ -36,7 +41,6 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     write2_init(PRIORITY);
-    //printf("write gotcha wrapper 2 initializing\n");
 }
 
 static void fini(void)

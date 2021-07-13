@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
     int result;
-    result = mknod_mknodat_gotcha_init();
+    result = mknod_mknodat_gotcha_init(1);
     if (result != 0) {
         return -1;
     }

@@ -12,18 +12,18 @@ struct gotcha_binding_t fwrite_wrap_actions [] = {
 };
 
 int fwrite2_init(int priority) {
-    enum gotcha_error_t result; 
-    result = gotcha_set_priority("wrapper2", priority);
+    printf("fwrite gotcha wrapper 2 initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("fwrite-wrapper2", priority);
     if (result != GOTCHA_SUCCESS) {
-      printf("gotcha_set_priority returned %d\n", (int) result);
+      printf("Error: fwrite-wrapper2 gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    } 
+    result = gotcha_wrap(fwrite_wrap_actions, sizeof(fwrite_wrap_actions)/sizeof(struct gotcha_binding_t), "fwrite-wrapper2");
+    if (result != GOTCHA_SUCCESS) {
+      printf("Error: fwrite-wrapper2 gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
-    result = gotcha_wrap(fwrite_wrap_actions, sizeof(fwrite_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper2");
-    if (result != GOTCHA_SUCCESS) {
-      printf("gotcha_wrap returned %d\n", (int) result);
-      return -1;
-    }
-    
     return 0;
 }
 

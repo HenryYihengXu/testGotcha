@@ -16,13 +16,20 @@ struct gotcha_binding_t MPI_wrap_actions [] = {
     {"MPI_Finalize", gotcha_MPI_Finalize_wrapper, &wrappee_MPI_Finalize_handle},
 };
 
-int mpi_gotcha_init() {
-    enum gotcha_error_t result; 
-    result = gotcha_wrap(MPI_wrap_actions, sizeof(MPI_wrap_actions)/sizeof(struct gotcha_binding_t), "MPI");
+int mpi_gotcha_init(int priority) {
+    printf("MPI_Init MPI_Finalize gotcha wrapper initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("MPI", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: MPI_Init MPI_Finalize gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
+    result = gotcha_wrap(MPI_wrap_actions, sizeof(MPI_wrap_actions)/sizeof(struct gotcha_binding_t), "MPI");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: MPI_Init MPI_Finalize gotcha_wrap returned %d\n", (int) result);
+      return -1;
+    }
+    return 0;
 }
 
 int gotcha_MPI_Init_wrapper(int *argc, char ***argv) {
@@ -45,11 +52,7 @@ static void fini(void) __attribute__((destructor));
 
 static void init(void)
 {
-    FILE* fd = fopen("./constructor-out", "ab");
-    char* buf = "mpi gotcha wrapper initializing\n";
-    fwrite(buf, sizeof(char), 32, fd);
-    // printf("mpi gotcha wrapper initializing\n");
-    mpi_gotcha_init();
+    mpi_gotcha_init(PRIORITY);
 }
 
 static void fini(void)

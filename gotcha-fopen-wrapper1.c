@@ -12,14 +12,19 @@ struct gotcha_binding_t fopen_wrap_actions [] = {
 };
 
 int fopen1_init(int priority) {
-    gotcha_set_priority("wrapper1", priority);
-
-    enum gotcha_error_t result; 
-    result = gotcha_wrap(fopen_wrap_actions, sizeof(fopen_wrap_actions)/sizeof(struct gotcha_binding_t), "wrapper1");
+    printf("fopen gotcha wrapper 1 initializing with priority = %d\n", priority);
+    enum gotcha_error_t result;
+    result = gotcha_set_priority("fopen-wrapper1", priority);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: fopen-wrapper1 gotcha_set_priority returned %d\n", (int) result);
+      return -1;
+    } 
+    result = gotcha_wrap(fopen_wrap_actions, sizeof(fopen_wrap_actions)/sizeof(struct gotcha_binding_t), "fopen-wrapper1");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: fopen-wrapper1 gotcha_wrap returned %d\n", (int) result);
       return -1;
     }
+    return 0;
 }
 
 static FILE* gotcha_fopen_wrapper(const char *filename, const char *mode) {
@@ -36,7 +41,6 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     fopen1_init(PRIORITY);
-    printf("fopen gotcha wrapper1 initializing\n");
 }
 
 static void fini(void)

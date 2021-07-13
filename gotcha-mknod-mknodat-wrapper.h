@@ -1,1 +1,1 @@
-int mknod_mknodat_gotcha_init();
+int mknod_mknodat_gotcha_init(int priority);

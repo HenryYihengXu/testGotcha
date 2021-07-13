@@ -1,16 +1,14 @@
 #include "gotcha/gotcha_types.h"
 #include "gotcha/gotcha.h"
-#include "gotcha-multiple-fread-wrapper.h"
 #include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 
 static gotcha_wrappee_handle_t wrappee_fread_handle1;
 static gotcha_wrappee_handle_t wrappee_fread_handle2;
-size_t gotcha_fread_wrapper1(void *ptr, size_t size, size_t nmemb, FILE *stream);
-size_t gotcha_fread_wrapper2(void *ptr, size_t size, size_t nmemb, FILE *stream);
+static FILE* gotcha_fread_wrapper1(const char *filename, const char *mode);
+static FILE* gotcha_fread_wrapper2(const char *filename, const char *mode);
 struct gotcha_binding_t fread_wrap_actions1 [] = {
     {"fread", gotcha_fread_wrapper1, &wrappee_fread_handle1}
 };
@@ -19,50 +17,44 @@ struct gotcha_binding_t fread_wrap_actions2 [] = {
 };
 
 int fread_init() {
-    gotcha_set_priority("wrapper1", 3);
-    gotcha_set_priority("wrapper2", 2);
-
+    printf("multiple-fread-wrapper1 initializing with priority = %d\n", 3);
+    printf("multiple-fread-wrapper2 initializing with priority = %d\n", 2);
     enum gotcha_error_t result; 
-    result = gotcha_wrap(fread_wrap_actions1, sizeof(fread_wrap_actions1)/sizeof(struct gotcha_binding_t), "wrapper1");
+    result = gotcha_set_priority("multiple-fread-wrapper1", 3);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: multiple-fread-wrapper1 gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
-    result = gotcha_wrap(fread_wrap_actions2, sizeof(fread_wrap_actions2)/sizeof(struct gotcha_binding_t), "wrapper2");
+    result = gotcha_set_priority("multiple-fread-wrapper2", 2);
     if (result != GOTCHA_SUCCESS) {
-      fprintf(stderr, "gotcha_wrap returned %d\n", (int) result);
+      printf("Error: multiple-fread-wrapper2 gotcha_set_priority returned %d\n", (int) result);
       return -1;
     }
-    
+    result = gotcha_wrap(fread_wrap_actions1, sizeof(fread_wrap_actions1)/sizeof(struct gotcha_binding_t), "multiple-fread-wrapper1");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: multiple-fread-wrapper1 gotcha_wrap returned %d\n", (int) result);
+      return -1;
+    }
+    result = gotcha_wrap(fread_wrap_actions2, sizeof(fread_wrap_actions2)/sizeof(struct gotcha_binding_t), "multiple-fread-wrapper2");
+    if (result != GOTCHA_SUCCESS) {
+      fprintf(stderr, "Error: multiple-fread-wrapper2 gotcha_wrap returned %d\n", (int) result);
+      return -1;
+    }
+    return 0;
 }
 
-char *recover_filename(FILE *f)
-{
-    char fd_path[256];
-    int fd = fileno(f);
-    sprintf(fd_path, "/proc/self/fd/%d", fd);
-    char *filename = malloc(256);
-    int n;
-    if ((n = readlink(fd_path, filename, 255)) < 0)
-        return NULL;
-    filename[n] = '\0';
-    return filename;
-}
-
-size_t gotcha_fread_wrapper1(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-    char* filename = recover_filename(stream);
-    printf("In fread gotcha wrapper1 reading %s\n", filename);
+static FILE* gotcha_fread_wrapper1(const char *filename, const char *mode) {
+    printf("In multiple-fread-wrapper1 opening %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fread_wrapper1) __real_fread = gotcha_get_wrappee(wrappee_fread_handle1);
-    return __real_fread(ptr, size, nmemb, stream);
+    return __real_fread(filename, mode);
 }
 
-size_t gotcha_fread_wrapper2(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-    char* filename = recover_filename(stream);
-    printf("In fread gotcha wrapper2 reading %s\n", filename);
+static FILE* gotcha_fread_wrapper2(const char *filename, const char *mode) {
+    printf("In multiple-fread-wrapper2 opening %s\n", filename);
     //sleep(1);
     typeof(&gotcha_fread_wrapper2) __real_fread = gotcha_get_wrappee(wrappee_fread_handle2);
-    return __real_fread(ptr, size, nmemb, stream);
+    return __real_fread(filename, mode);
 }
 
 #ifdef WITH_INIT_FINI
@@ -72,7 +64,6 @@ static void fini(void) __attribute__((destructor));
 static void init(void)
 {
     fread_init();
-    printf("fread gotcha wrapper initializing\n");
 }
 
 static void fini(void)
