@@ -1,6 +1,6 @@
 CC=gcc
 BUILDDIR=build
-CFLAGS=-I${PWD}/env/include -L${PWD}/env/lib -fPIC -L${PWD}/${BUILDDIR} -g -O0
+CFLAGS=-I${PWD}/env/include -L${PWD}/env/lib -L${PWD}/env/lib64 -fPIC -L${PWD}/${BUILDDIR} -g -O0
 MPICC=mpicc
 GOTCHA_LIB=${PWD}/env/lib
 GOTCHA_INCLUDE=${PWD}/env/include
@@ -191,9 +191,9 @@ dlsym-mpi-wrapper1-with-init-fini: dlsym-mpi-wrapper1.c
 	$(MPICC) $(CFLAGS) -shared -o ${BUILDDIR}/lib$@.so $^ -DWITH_INIT_FINI -ldl
 
 dlsym-mpi-wrapper2-with-init-fini: dlsym-mpi-wrapper2.c
-	$(MPICC) $(CFLAGS) -shared -o ${BUILDDIR}/lib$@.so $^ -DWITH_INIT_FINI -ldl	
+	$(MPICC) $(CFLAGS) -shared -o ${BUILDDIR}/lib$@.so $^ -DWITH_INIT_FINI -ldl
 
-dlsym-mpi-main: mpi-main.c dlsym-mpi-wrapper1.o
+dlsym-mpi-main: mpi-main.c ${BUILDDIR}/dlsym-mpi-wrapper1.o
 	$(MPICC) $(CFLAGS) -o ${BUILDDIR}/$@ $^ -ldl
 
 dlsym-mpi-main-using-so: mpi-main.c
