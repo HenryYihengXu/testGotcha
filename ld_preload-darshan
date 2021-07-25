@@ -1,0 +1,25 @@
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-install/lib/libdarshan.so
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/summer-2021/darshan-old-install/lib/libdarshan.so:/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2
+
+export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2\
+:/g/g92/xu23/summer-2021/darshan-install/lib/libdarshan.so
+
+export MY_DARSHAN_LOG_DIR=/g/g92/xu23/
+
+jsrun -n 1 -E LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-original-install/lib/libdarshan.so
+
+export LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2\
+:/g/g92/xu23/summer-2021/darshan-install-with-ini/lib/libdarshan.so
+
+export MY_DARSHAN_LOG_DIR=/g/g92/xu23
+
+
+LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-install/lib/libdarshan.so gdb ./build/mpi-main-no-links
+LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-install/lib/libdarshan.so gdb ./build/fopen-fread-fwrite-main-with-mpi-no-links
+
+LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-original-install/lib/libdarshan.so gdb ./build/mpi-main-no-links
+
+
+LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-install/lib/libdarshan.so jsrun -n 1 gdb ./build/mpi-main-no-links
+
+LD_PRELOAD=/g/g92/xu23/apps/GOTCHA-1.0.3/lib64/libgotcha.so.2:/g/g92/xu23/summer-2021/darshan-old-original-install/lib/libdarshan.so jsrun -n 1 gdb ./build/mpi-main-no-links

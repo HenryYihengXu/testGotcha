@@ -11,6 +11,7 @@ all: dir fopen-fread-main-no-links \
 	fopen-fread-fwrite-main-no-links \
 	fopen-fread-fwrite-main-with-mpi-no-links \
 	mpi-main-no-links \
+	MPI_File_open-main-no-links \
 	append-no-links \
 	write-append-no-links \
 	write-append-mix \
@@ -87,6 +88,9 @@ fopen-fread-fwrite-main-with-mpi-no-links: fopen-fread-fwrite-main-with-mpi.c
 	$(MPICC) $(CFLAGS) -o ${BUILDDIR}/$@ $^
 
 mpi-main-no-links: mpi-main.c
+	$(MPICC) $(CFLAGS) -o ${BUILDDIR}/$@ $^
+
+MPI_File_open-main-no-links: MPI_File_open-main.c
 	$(MPICC) $(CFLAGS) -o ${BUILDDIR}/$@ $^
 
 append-no-links: append-main.c
